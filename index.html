@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>קונים רכבים אחרי תאונה | הצעת מחיר מיידית</title>
+  <meta name="description" content="קונים כל רכב אחרי תאונה, טוטאלוס, רכב פגוע או לא נוסע – במחיר הטוב ביותר. מגיעים עד בית הלקוח, גרירה עלינו ותשלום במקום. 054-4411991">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- כותרת עליונה -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#top" class="logo">
+        <span class="logo-icon" aria-hidden="true">🚗</span>
+        <span class="logo-text">קונה<strong>רכבים</strong></span>
+      </a>
+      <nav class="main-nav" id="main-nav">
+        <a href="#how">איך זה עובד</a>
+        <a href="#what">מה אנחנו קונים</a>
+        <a href="#why">למה אנחנו</a>
+        <a href="#faq">שאלות נפוצות</a>
+        <a href="#offer" class="nav-cta">קבל הצעה</a>
+      </nav>
+      <a class="header-phone" data-phone-link href="tel:">📞 <span data-phone-text></span></a>
+      <button class="menu-toggle" id="menu-toggle" aria-label="פתיחת תפריט" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- Hero + טופס -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <span class="badge">✔ הערכה חינם · ללא התחייבות</span>
+          <h1>עשית תאונה?<br><span class="highlight">אנחנו קונים את הרכב שלך</span><br>במחיר הטוב ביותר!</h1>
+          <p class="lead">רכב פגוע, טוטאלוס, אחרי שריפה או הצפה, או פשוט רכב שלא נוסע – שלחו פרטים ותמונות, וקבלו הצעת מחיר הוגנת תוך דקות. אנחנו מגיעים עד הבית שלכם, גרירה עלינו ותשלום במקום.</p>
+          <ul class="hero-points">
+            <li>💰 תשלום מיידי – מזומן או העברה בנקאית</li>
+            <li>🏠 מגיעים עד בית הלקוח – בכל הארץ</li>
+            <li>🚚 גרירה חינם, עלינו</li>
+            <li>📄 טיפול מלא בהעברת בעלות</li>
+            <li>⚡ הצעת מחיר תוך 15 דקות</li>
+          </ul>
+          <div class="hero-buttons">
+            <a href="#offer" class="btn btn-primary">קבלו הצעת מחיר עכשיו</a>
+            <a data-whatsapp-link href="#" target="_blank" rel="noopener" class="btn btn-whatsapp">💬 שלחו תמונות בוואטסאפ</a>
+          </div>
+        </div>
+
+        <div class="form-card" id="offer">
+          <h2>קבלו הצעת מחיר לרכב</h2>
+          <p class="form-sub">ממלאים 30 שניות – אנחנו חוזרים אליכם מיד</p>
+          <form id="offer-form" novalidate>
+            <div class="form-row">
+              <label>
+                יצרן *
+                <select name="make" required>
+                  <option value="">בחרו יצרן</option>
+                  <option>טויוטה</option>
+                  <option>יונדאי</option>
+                  <option>קיה</option>
+                  <option>מאזדה</option>
+                  <option>סקודה</option>
+                  <option>פולקסווגן</option>
+                  <option>מיצובישי</option>
+                  <option>שברולט</option>
+                  <option>סוזוקי</option>
+                  <option>ניסאן</option>
+                  <option>הונדה</option>
+                  <option>רנו</option>
+                  <option>פיג'ו</option>
+                  <option>סיטרואן</option>
+                  <option>סיאט</option>
+                  <option>פורד</option>
+                  <option>אאודי</option>
+                  <option>ב.מ.וו</option>
+                  <option>מרצדס</option>
+                  <option>טסלה</option>
+                  <option>BYD</option>
+                  <option>MG</option>
+                  <option>אחר</option>
+                </select>
+              </label>
+              <label>
+                דגם *
+                <input type="text" name="model" placeholder="לדוגמה: קורולה" required>
+              </label>
+            </div>
+            <div class="form-row">
+              <label>
+                שנת ייצור *
+                <select name="year" id="year-select" required>
+                  <option value="">בחרו שנה</option>
+                </select>
+              </label>
+              <label>
+                קילומטראז'
+                <input type="number" name="km" placeholder="לדוגמה: 120000" min="0" inputmode="numeric">
+              </label>
+            </div>
+            <label>
+              סוג הנזק *
+              <select name="damage" required>
+                <option value="">בחרו סוג נזק</option>
+                <option>תאונה – נזק קל</option>
+                <option>תאונה – נזק בינוני</option>
+                <option>תאונה – נזק כבד</option>
+                <option>טוטאלוס / אובדן גמור</option>
+                <option>נזק מנוע / גיר</option>
+                <option>נזקי שריפה</option>
+                <option>נזקי הצפה</option>
+                <option>רכב לא נוסע</option>
+                <option>אחר</option>
+              </select>
+            </label>
+            <div class="form-row">
+              <label>
+                האם הרכב נוסע?
+                <select name="drivable">
+                  <option>לא ידוע</option>
+                  <option>כן, נוסע</option>
+                  <option>לא, צריך גרירה</option>
+                </select>
+              </label>
+              <label>
+                אזור / עיר *
+                <input type="text" name="city" placeholder="לדוגמה: חיפה" required>
+              </label>
+            </div>
+            <div class="form-row">
+              <label>
+                שם מלא *
+                <input type="text" name="name" placeholder="השם שלכם" required>
+              </label>
+              <label>
+                טלפון *
+                <input type="tel" name="phone" placeholder="050-0000000" required inputmode="tel">
+              </label>
+            </div>
+            <label>
+              הערות (אופציונלי)
+              <textarea name="notes" rows="2" placeholder="תיאור קצר של הנזק, מצב הרכב, וכו'"></textarea>
+            </label>
+            <p class="form-error" id="form-error" role="alert" hidden></p>
+            <button type="submit" class="btn btn-primary btn-block">שלחו וקבלו הצעה ←</button>
+            <p class="form-note">🔒 הפרטים נשלחים ישירות אלינו בוואטסאפ. אחרי השליחה צרפו תמונות של הרכב לקבלת הצעה מדויקת יותר.</p>
+          </form>
+          <div class="form-success" id="form-success" hidden>
+            <div class="success-icon">✅</div>
+            <h3>תודה! הפרטים התקבלו</h3>
+            <p>אם חלון הוואטסאפ לא נפתח, לחצו כאן:</p>
+            <a id="success-whatsapp" href="#" target="_blank" rel="noopener" class="btn btn-whatsapp">💬 פתיחת וואטסאפ</a>
+            <p class="small">או התקשרו: <a data-phone-link href="tel:"><span data-phone-text></span></a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- מספרים -->
+    <section class="stats">
+      <div class="container stats-inner">
+        <div class="stat"><strong data-count="2500">0</strong><span>רכבים נקנו</span></div>
+        <div class="stat"><strong data-count="15">0</strong><span>דקות להצעה</span></div>
+        <div class="stat"><strong data-count="24">0</strong><span>שעות לאיסוף</span></div>
+        <div class="stat"><strong data-count="98" data-suffix="%">0</strong><span>לקוחות מרוצים</span></div>
+      </div>
+    </section>
+
+    <!-- איך זה עובד -->
+    <section class="section" id="how">
+      <div class="container">
+        <h2 class="section-title">איך זה עובד? <span>3 צעדים פשוטים</span></h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <h3>שולחים פרטים ותמונות</h3>
+            <p>ממלאים את הטופס או שולחים לנו תמונות של הרכב ורישיון הרכב בוואטסאפ.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <h3>מקבלים הצעת מחיר</h3>
+            <p>שמאי מקצועי בודק את הרכב ונותן לכם הצעה הוגנת ושקופה – בלי הפתעות.</p>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <h3>מגיעים עד הבית ומשלמים</h3>
+            <p>מגיעים עד בית הלקוח עם גרר, מטפלים בהעברת הבעלות ומשלמים לכם במקום.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- מה אנחנו קונים -->
+    <section class="section section-alt" id="what">
+      <div class="container">
+        <h2 class="section-title">אילו רכבים אנחנו קונים? <span>כל רכב, בכל מצב</span></h2>
+        <div class="cards">
+          <div class="card"><div class="card-icon">💥</div><h3>רכב אחרי תאונה</h3><p>נזק קל, בינוני או כבד – פח, שלדה, כריות אוויר.</p></div>
+          <div class="card"><div class="card-icon">🛑</div><h3>טוטאלוס / אובדן גמור</h3><p>רכבים שהוכרזו אובדן גמור או אובדן גמור להלכה.</p></div>
+          <div class="card"><div class="card-icon">🔧</div><h3>תקלות מנוע וגיר</h3><p>מנוע שרוף, גיר תקוע, תקלות חשמל יקרות.</p></div>
+          <div class="card"><div class="card-icon">🔥</div><h3>נזקי שריפה</h3><p>רכבים שנפגעו משריפה חלקית או מלאה.</p></div>
+          <div class="card"><div class="card-icon">🌊</div><h3>נזקי הצפה</h3><p>רכבים שנפגעו ממים ושיטפונות.</p></div>
+          <div class="card"><div class="card-icon">🚙</div><h3>רכב ישן / לא נוסע</h3><p>רכב שעומד בחניה ומעלה אבק? נקנה גם אותו.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- למה אנחנו -->
+    <section class="section" id="why">
+      <div class="container">
+        <h2 class="section-title">למה למכור דווקא לנו?</h2>
+        <div class="why-grid">
+          <div class="why-item"><span>🏆</span><div><h3>המחיר הגבוה ביותר</h3><p>אנחנו עובדים ישירות בלי מתווכים – וההפרש עובר אליכם. קיבלתם הצעה טובה יותר? דברו איתנו.</p></div></div>
+          <div class="why-item"><span>⚡</span><div><h3>מהיר ופשוט</h3><p>הצעת מחיר תוך דקות ואיסוף הרכב כבר באותו היום או למחרת.</p></div></div>
+          <div class="why-item"><span>💵</span><div><h3>תשלום מיידי</h3><p>תשלום מלא במקום, במזומן או בהעברה בנקאית – לפני שהרכב זז.</p></div></div>
+          <div class="why-item"><span>📋</span><div><h3>אפס בירוקרטיה</h3><p>אנחנו מטפלים בהעברת בעלות, הורדה מהכביש ומול חברת הביטוח.</p></div></div>
+          <div class="why-item"><span>🚚</span><div><h3>מגיעים עד הבית</h3><p>לא צריך לזוז – אנחנו מגיעים אליכם הביתה, למוסך או למגרש הגרירה. גרירה חינם.</p></div></div>
+          <div class="why-item"><span>🤝</span><div><h3>הגינות ושקיפות</h3><p>בלי הורדות מחיר ברגע האחרון. המחיר שסגרנו – זה המחיר שתקבלו.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- המלצות -->
+    <section class="section section-alt">
+      <div class="container">
+        <h2 class="section-title">מה הלקוחות אומרים</h2>
+        <div class="testimonials">
+          <blockquote>
+            <p>"הרכב שלי הוכרז טוטאלוס ולא ידעתי מה לעשות איתו. קיבלתי הצעה תוך 10 דקות, למחרת הגיעו עם גרר ושילמו במקום. ממליץ בחום!"</p>
+            <cite>— אבי, ראשון לציון</cite>
+          </blockquote>
+          <blockquote>
+            <p>"השוויתי מול 3 סוחרים – פה קיבלתי את המחיר הכי גבוה. שירות אדיב ומקצועי, טיפלו בכל הניירת."</p>
+            <cite>— מיכל, באר שבע</cite>
+          </blockquote>
+          <blockquote>
+            <p>"מנוע הלך ברכב בן 12. חשבתי שאקבל גרושים, הופתעתי לטובה. עסקה מהירה והוגנת."</p>
+            <cite>— יוסי, נתניה</cite>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- שאלות נפוצות -->
+    <section class="section" id="faq">
+      <div class="container narrow">
+        <h2 class="section-title">שאלות נפוצות</h2>
+        <details>
+          <summary>איך נקבע המחיר של הרכב?</summary>
+          <p>המחיר נקבע לפי יצרן, דגם, שנה, קילומטראז', היקף הנזק וערך החלקים. ככל שתשלחו יותר תמונות ופרטים – ההצעה תהיה מדויקת יותר.</p>
+        </details>
+        <details>
+          <summary>אתם קונים גם רכב שהוכרז טוטאלוס?</summary>
+          <p>בהחלט. אנחנו קונים רכבים באובדן גמור ובאובדן גמור להלכה, וגם עוזרים מול חברת הביטוח במידת הצורך.</p>
+        </details>
+        <details>
+          <summary>מי משלם על הגרירה?</summary>
+          <p>אנחנו. מגיעים עד בית הלקוח, והגרירה חינם ונכללת בהצעה.</p>
+        </details>
+        <details>
+          <summary>אילו מסמכים צריך?</summary>
+          <p>רישיון רכב, תעודת זהות של הבעלים ומפתחות הרכב. אם יש שעבוד – נעזור לכם לטפל בהסרתו.</p>
+        </details>
+        <details>
+          <summary>מתי מקבלים את הכסף?</summary>
+          <p>במעמד איסוף הרכב – במזומן או בהעברה בנקאית, לפי בחירתכם.</p>
+        </details>
+        <details>
+          <summary>הרכב עדיין משועבד / יש עליו חוב – אפשר למכור?</summary>
+          <p>כן. אנחנו יכולים לסלק את יתרת ההלוואה ישירות מול הגוף המממן ולשלם לכם את ההפרש.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- קריאה לפעולה -->
+    <section class="cta-band">
+      <div class="container cta-inner">
+        <div>
+          <h2>מוכנים למכור את הרכב?</h2>
+          <p>קבלו הצעת מחיר הוגנת עכשיו – בלי התחייבות.</p>
+        </div>
+        <div class="cta-buttons">
+          <a data-phone-link href="tel:" class="btn btn-light">📞 התקשרו עכשיו</a>
+          <a data-whatsapp-link href="#" target="_blank" rel="noopener" class="btn btn-whatsapp">💬 וואטסאפ</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <a href="#top" class="logo"><span class="logo-icon" aria-hidden="true">🚗</span><span class="logo-text">קונה<strong>רכבים</strong></span></a>
+        <p>קנייה של רכבים אחרי תאונה, טוטאלוס ורכבים פגועים בכל הארץ.</p>
+      </div>
+      <div>
+        <h4>יצירת קשר</h4>
+        <p>טלפון: <a data-phone-link href="tel:"><span data-phone-text></span></a></p>
+        <p>וואטסאפ: <a data-whatsapp-link href="#" target="_blank" rel="noopener">שלחו הודעה</a></p>
+        <p>שעות פעילות: א'–ה' 08:00–20:00, ו' 08:00–14:00</p>
+      </div>
+    </div>
+    <p class="copyright">© <span id="year"></span> קונה רכבים. כל הזכויות שמורות.</p>
+  </footer>
+
+  <!-- כפתור וואטסאפ צף -->
+  <a data-whatsapp-link href="#" target="_blank" rel="noopener" class="whatsapp-float" aria-label="שליחת הודעה בוואטסאפ">💬</a>
+
+  <script src="script.js"></script>
+</body>
+</html>
