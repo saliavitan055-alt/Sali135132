@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4a6a8c"/><stop offset="1" stop-color="#2b4563"/>
+    </linearGradient>
+    <linearGradient id="road" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a4654"/><stop offset="1" stop-color="#1f2731"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="700" fill="url(#sky)"/>
+  <!-- trees -->
+  <g fill="#22384f">
+    <ellipse cx="80" cy="330" rx="140" ry="150"/><ellipse cx="300" cy="300" rx="170" ry="170"/>
+    <ellipse cx="560" cy="320" rx="150" ry="150"/><ellipse cx="820" cy="290" rx="190" ry="170"/>
+    <ellipse cx="1100" cy="310" rx="170" ry="160"/><ellipse cx="1380" cy="300" rx="190" ry="170"/>
+    <ellipse cx="1580" cy="330" rx="150" ry="150"/>
+  </g>
+  <rect y="430" width="1600" height="270" fill="url(#road)"/>
+  <rect y="440" width="1600" height="10" fill="#8a96a3" opacity=".6"/>
+  <g fill="#e8edf2" opacity=".7">
+    <polygon points="0,640 420,600 440,610 0,660"/><polygon points="1150,560 1500,540 1510,548 1160,570"/>
+  </g>
+  <!-- tow truck -->
+  <g transform="translate(470,250)">
+    <!-- flatbed -->
+    <polygon points="0,250 560,170 580,200 20,285" fill="#e0782f"/>
+    <polygon points="20,285 580,200 580,225 25,310" fill="#a9541c"/>
+    <!-- chassis -->
+    <rect x="40" y="300" width="640" height="40" rx="6" fill="#1c2430"/>
+    <!-- cab -->
+    <path d="M600,150 L760,150 L820,250 L820,340 L600,340 Z" fill="#d9dde2"/>
+    <path d="M620,165 L740,165 L790,245 L620,245 Z" fill="#6f8aa6"/>
+    <rect x="600" y="300" width="230" height="40" fill="#b8bec6"/>
+    <rect x="800" y="290" width="30" height="20" fill="#f2c94c"/>
+    <!-- wheels -->
+    <g fill="#11161d"><circle cx="150" cy="350" r="48"/><circle cx="260" cy="350" r="48"/><circle cx="720" cy="350" r="48"/></g>
+    <g fill="#5d6772"><circle cx="150" cy="350" r="20"/><circle cx="260" cy="350" r="20"/><circle cx="720" cy="350" r="20"/></g>
+    <!-- damaged car on bed -->
+    <g transform="rotate(-8 300 180)">
+      <path d="M80,200 L120,140 Q150,95 230,90 L380,88 Q440,90 480,130 L540,170 L545,215 L80,225 Z" fill="#294b78"/>
+      <path d="M150,140 Q170,108 230,104 L300,103 L300,145 Z" fill="#8fb0cf"/>
+      <path d="M318,103 L380,102 Q420,105 450,140 L318,145 Z" fill="#8fb0cf"/>
+      <!-- crumpled front -->
+      <path d="M480,130 L520,150 L505,165 L545,172 L525,190 L548,212 L470,210 Z" fill="#1d3557"/>
+      <path d="M490,160 L520,175 M480,185 L515,195" stroke="#9fb4c8" stroke-width="4"/>
+      <g fill="#11161d"><circle cx="160" cy="225" r="38"/><circle cx="450" cy="225" r="38"/></g>
+      <g fill="#aab4bf"><circle cx="160" cy="225" r="18"/><circle cx="450" cy="225" r="18"/></g>
+    </g>
+  </g>
+</svg>

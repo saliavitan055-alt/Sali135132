@@ -3,7 +3,7 @@ const CONFIG = {
   phoneDisplay: '054-4411991',
   phoneTel: '0544411991',
   whatsapp: '972544411991', // פורמט בינלאומי, בלי + ובלי 0 בהתחלה
-  whatsappGreeting: 'שלום, אני מעוניין למכור רכב אחרי תאונה. אשמח להצעת מחיר.'
+  whatsappGreeting: 'שלום קרש קאר, אני מעוניין למכור רכב אחרי תאונה. אשמח להצעת מחיר.'
 };
 
 const waUrl = (text) => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(text)}`;
@@ -51,30 +51,24 @@ form.addEventListener('submit', (e) => {
   if (form.phone.value.trim() && !phoneOk) form.phone.classList.add('invalid');
 
   if (missing.length || !phoneOk) {
-    errorBox.textContent = missing.length ? 'נא למלא את כל שדות החובה המסומנים' : 'מספר הטלפון אינו תקין';
+    errorBox.textContent = missing.length ? 'נא למלא את כל השדות' : 'מספר הטלפון אינו תקין';
     errorBox.hidden = false;
     (missing[0] || form.phone).focus();
     return;
   }
 
   const d = Object.fromEntries(new FormData(form));
-  const lines = [
-    '🚗 *בקשה להצעת מחיר לרכב*',
-    `יצרן: ${d.make}`,
-    `דגם: ${d.model}`,
-    `שנה: ${d.year}`,
-    d.km ? `קילומטראז': ${Number(d.km).toLocaleString('he-IL')}` : null,
-    `סוג נזק: ${d.damage}`,
-    `נוסע: ${d.drivable}`,
-    `אזור: ${d.city}`,
+  const message = [
+    '🚗 *בקשה להצעת מחיר – קרש קאר*',
     `שם: ${d.name}`,
     `טלפון: ${d.phone}`,
-    d.notes ? `הערות: ${d.notes}` : null,
+    `יצרן ודגם: ${d.car}`,
+    `שנת ייצור: ${d.year}`,
     '',
     '(מצרף/ת תמונות של הרכב 👇)'
-  ].filter((l) => l !== null);
+  ].join('\n');
 
-  const url = waUrl(lines.join('\n'));
+  const url = waUrl(message);
   document.getElementById('success-whatsapp').href = url;
   window.open(url, '_blank', 'noopener');
 
@@ -84,24 +78,16 @@ form.addEventListener('submit', (e) => {
 
 form.addEventListener('input', (e) => e.target.classList.remove('invalid'));
 
-// אנימציית מספרים
-const counters = document.querySelectorAll('[data-count]');
-const animate = (el) => {
-  const target = +el.dataset.count;
-  const suffix = el.dataset.suffix || '+';
-  const start = performance.now();
-  const step = (now) => {
-    const p = Math.min((now - start) / 1500, 1);
-    el.textContent = Math.floor(target * (1 - Math.pow(1 - p, 3))).toLocaleString('he-IL') + (p === 1 ? suffix : '');
-    if (p < 1) requestAnimationFrame(step);
-  };
-  requestAnimationFrame(step);
+// סימון הקישור הפעיל בתפריט לפי הגלילה
+const navLinks = [...nav.querySelectorAll('a')];
+const sections = navLinks
+  .map((a) => document.querySelector(a.getAttribute('href')))
+  .filter(Boolean);
+const setActive = () => {
+  const y = window.scrollY + 120;
+  let current = sections[0];
+  sections.forEach((sec) => { if (sec.offsetTop <= y) current = sec; });
+  navLinks.forEach((a) => a.classList.toggle('active', document.querySelector(a.getAttribute('href')) === current));
 };
-if ('IntersectionObserver' in window) {
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((en) => { if (en.isIntersecting) { animate(en.target); io.unobserve(en.target); } });
-  }, { threshold: 0.5 });
-  counters.forEach((c) => io.observe(c));
-} else {
-  counters.forEach(animate);
-}
+window.addEventListener('scroll', setActive, { passive: true });
+setActive();
