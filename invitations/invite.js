@@ -3,6 +3,7 @@
 const params = new URLSearchParams(location.hash.slice(1));
 const data = params.get('d') ? decodeInvite(params.get('d')) : null;
 const guestName = params.get('g') || '';
+const guestId = params.get('gi') || '';
 
 if (!data) {
   document.getElementById('envelope').hidden = true;
@@ -14,7 +15,7 @@ if (!data) {
 function initInvite() {
   const type = EVENT_TYPES[data.t] || EVENT_TYPES.other;
   document.title = `הזמנה ל${type.label} – ${data.n || ''}`;
-  document.body.classList.add(`theme-${data.th || 'gold'}-page`);
+  document.body.classList.add(`theme-${THEMES[data.th] ? data.th : 'gold'}`);
   document.getElementById('env-to').textContent = guestName ? `${guestName}, הוזמנתם!` : 'הוזמנתם!';
 
   renderCard(document.getElementById('card'), data, guestName);
@@ -75,7 +76,7 @@ function startCountdown() {
 
 function initRsvp(type) {
   const section = document.getElementById('rsvp');
-  if (!data.p) { section.hidden = true; return; }
+  if (!data.p && !data.r) { section.hidden = true; return; }
 
   const form = document.getElementById('rsvp-form');
   const countInput = form.elements.count;
@@ -91,8 +92,7 @@ function initRsvp(type) {
     });
   });
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
+  const whatsappText = () => {
     const answer = form.elements.answer.value;
     const name = form.elements.name.value.trim();
     const lines = {
@@ -101,6 +101,71 @@ function initRsvp(type) {
       no: `❌ ${name} – לצערנו לא נוכל להגיע ל${type.label}`
     };
     const note = form.elements.note.value.trim();
-    window.open(waUrl(data.p, lines[answer] + (note ? `\n${note}` : '')), '_blank', 'noopener');
+    return lines[answer] + (note ? `\n${note}` : '');
+  };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!data.r) {
+      window.open(waUrl(data.p, whatsappText()), '_blank', 'noopener');
+      return;
+    }
+
+    // שמירה בגיליון של בעלי האירוע – מתעדכן אצלם ברשימה אוטומטית
+    const button = form.querySelector('[type="submit"]');
+    button.disabled = true;
+    button.textContent = 'שולחים...';
+    try {
+      await fetch(data.r, {
+        method: 'POST',
+        mode: 'no-cors', // Apps Script לא מחזיר CORS ל-POST; הבקשה עדיין נשמרת
+        body: JSON.stringify({
+          event: data.id,
+          gid: guestId,
+          name: form.elements.name.value.trim(),
+          answer: form.elements.answer.value,
+          count: form.elements.answer.value === 'no' ? 0 : Number(countInput.value),
+          note: form.elements.note.value.trim()
+        })
+      });
+      showThanks();
+    } catch (err) {
+      button.disabled = false;
+      button.textContent = 'אישור הגעה';
+      alert(data.p ? 'השליחה נכשלה. אפשר לנסות שוב או לשלוח בוואטסאפ.' : 'השליחה נכשלה. בדקו את החיבור לאינטרנט ונסו שוב.');
+    }
   });
+
+  if (data.r) form.querySelector('[type="submit"]').textContent = 'אישור הגעה';
+  if (data.r && data.p) {
+    const wa = document.createElement('a');
+    wa.className = 'rsvp-alt';
+    wa.target = '_blank';
+    wa.rel = 'noopener';
+    wa.textContent = 'או שלחו את התשובה בוואטסאפ';
+    wa.href = '#';
+    wa.addEventListener('click', () => { wa.href = waUrl(data.p, whatsappText()); });
+    form.appendChild(wa);
+  }
+
+  function showThanks() {
+    const answer = form.elements.answer.value;
+    const messages = {
+      yes: 'תודה! אישור ההגעה התקבל. מחכים לראותכם 🎉',
+      maybe: 'תודה! עדכנו אותנו כשתדעו – אפשר לחזור לקישור הזה בכל זמן.',
+      no: 'תודה שעדכנתם. נתגעגע! 💛'
+    };
+    form.hidden = true;
+    const box = document.createElement('div');
+    box.className = 'rsvp-thanks';
+    box.innerHTML = `<p>${messages[answer]}</p><button type="button" class="btn btn-ghost">שינוי תשובה</button>`;
+    box.querySelector('button').addEventListener('click', () => {
+      box.remove();
+      form.hidden = false;
+      const button = form.querySelector('[type="submit"]');
+      button.disabled = false;
+      button.textContent = 'אישור הגעה';
+    });
+    section.appendChild(box);
+  }
 }

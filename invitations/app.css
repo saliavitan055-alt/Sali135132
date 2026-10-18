@@ -159,6 +159,43 @@ form .panel-title:not(:first-child) { margin-top: 30px; padding-top: 22px; borde
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
+/* תזכורות */
+.reminders { margin: 4px 0 16px; }
+.reminder-tip { background: #fff4dc; border: 1px solid #f3d999; color: #6d4a00; padding: 10px 14px; border-radius: 12px; margin: 0 0 10px; font-weight: 500; }
+.reminder-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+.reminder-buttons .btn { font-weight: 500; }
+.reminder-buttons b { background: #efe8fb; color: var(--primary); border-radius: 99px; padding: 0 8px; font-size: .85rem; }
+.guest-name { display: block; }
+.guest-meta { display: block; color: var(--muted); font-size: .8rem; line-height: 1.4; }
+.meta-auto { color: #17733b; font-weight: 700; }
+
+.remind-dialog { width: min(480px, 100% - 32px); border: 0; border-radius: var(--radius); padding: 22px; box-shadow: 0 30px 70px rgba(0,0,0,.3); color: var(--text); }
+.remind-dialog::backdrop { background: rgba(31, 27, 36, .5); }
+.remind-dialog h3 { margin: 0; font-size: 1.2rem; }
+.remind-progress { margin: 2px 0 12px; color: var(--muted); font-size: .9rem; }
+.remind-guest { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; background: #f6f3fb; padding: 10px 12px; border-radius: 10px; margin-bottom: 10px; }
+.remind-actions { display: flex; gap: 8px; margin: 12px 0 4px; flex-wrap: wrap; }
+.remind-actions .btn-whatsapp { flex: 1; }
+
+/* עדכון אוטומטי */
+.sync-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; background: #e3f6ea; color: #17733b; border-radius: 12px; padding: 8px 14px; margin: 0 0 12px; font-weight: 500; }
+.sync-bar .btn { margin-inline-start: auto; }
+.sync-dot { width: 9px; height: 9px; border-radius: 50%; background: #2bb361; box-shadow: 0 0 0 4px #2bb36133; }
+.sync-bar.error { background: #fde8e8; color: #b42318; }
+.sync-bar.error .sync-dot { background: #d93a3a; box-shadow: 0 0 0 4px #d93a3a33; }
+.sync-panel { margin-bottom: 34px; }
+.sync-panel summary { display: flex; align-items: center; justify-content: space-between; gap: 10px; cursor: pointer; list-style: none; }
+.sync-panel summary::-webkit-details-marker { display: none; }
+.sync-panel summary .panel-title { margin: 0; }
+.badge { background: #f4f2f6; color: var(--muted); padding: 4px 12px; border-radius: 99px; font-size: .85rem; font-weight: 700; white-space: nowrap; }
+.badge.on { background: #e3f6ea; color: #17733b; }
+.setup-steps { padding-inline-start: 22px; }
+.setup-steps li { margin-bottom: 10px; }
+.setup-steps code { background: #f4f2f6; padding: 1px 6px; border-radius: 6px; font-size: .88em; }
+.code-actions { display: flex; gap: 8px; margin-top: 6px; }
+.sync-form { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; align-items: end; }
+.sync-form-actions { grid-column: 1 / -1; display: flex; gap: 8px; flex-wrap: wrap; }
+
 /* ===== כרטיס ההזמנה ===== */
 .invite-card {
   --c-bg: #fffdf7; --c-text: #3d3426; --c-accent: #b8913a; --c-soft: #8a7a5e;
@@ -190,13 +227,22 @@ form .panel-title:not(:first-child) { margin-top: 30px; padding-top: 22px; borde
 .card-family { margin: 14px 0 0; font-family: var(--serif); font-weight: 700; color: var(--c-accent); font-size: 1.1rem; }
 
 /* עיצובים */
-.theme-gold    { --c-bg: linear-gradient(180deg, #fffdf6, #f7efdc); --c-text: #3d3426; --c-accent: #b08a34; --c-soft: #7f7058; }
-.theme-floral  { --c-bg: radial-gradient(circle at 0 0, #f8c9d4 0 70px, transparent 71px), radial-gradient(circle at 100% 100%, #f6d6c4 0 90px, transparent 91px), #fff6f7; --c-text: #4a2f37; --c-accent: #c2577a; --c-soft: #8c6670; }
-.theme-night   { --c-bg: radial-gradient(circle at 20% 15%, rgba(255,255,255,.12) 1px, transparent 2px) 0 0 / 34px 34px, linear-gradient(170deg, #1d2a4f, #0f1730); --c-text: #eef0f8; --c-accent: #e2c27a; --c-soft: #b8bfd6; }
-.theme-fresh   { --c-bg: linear-gradient(180deg, #f1fbf7, #dff3ea); --c-text: #23463a; --c-accent: #2f9a76; --c-soft: #5d8576; }
-.theme-henna   { --c-bg: radial-gradient(ellipse at 50% 0, #ffcf6b40, transparent 60%), linear-gradient(170deg, #7a1832, #4c0d1f); --c-text: #fff2e2; --c-accent: #f4c15d; --c-soft: #f3d1b5; }
-.theme-party   { --c-bg: radial-gradient(circle at 12% 18%, #ffd34d 0 6px, transparent 7px), radial-gradient(circle at 85% 12%, #4dd6ff 0 7px, transparent 8px), radial-gradient(circle at 90% 80%, #ff6fa8 0 8px, transparent 9px), radial-gradient(circle at 10% 88%, #8fe36b 0 6px, transparent 7px), linear-gradient(160deg, #fff, #f6efff); --c-text: #2d2142; --c-accent: #8a3ffc; --c-soft: #6b5f80; }
-.theme-minimal { --c-bg: #ffffff; --c-text: #161616; --c-accent: #161616; --c-soft: #6b6b6b; }
+.theme-gold    { --page: #efe9df; --c-bg: linear-gradient(180deg, #fffdf6, #f7efdc); --c-text: #3d3426; --c-accent: #b08a34; --c-soft: #7f7058; }
+.theme-floral  { --page: #fbe9ec; --c-bg: radial-gradient(circle at 0 0, #f8c9d4 0 70px, transparent 71px), radial-gradient(circle at 100% 100%, #f6d6c4 0 90px, transparent 91px), #fff6f7; --c-text: #4a2f37; --c-accent: #c2577a; --c-soft: #8c6670; }
+.theme-night   { --page: #0b1124; --page-ink: #e8e2f3; --c-bg: radial-gradient(circle at 20% 15%, rgba(255,255,255,.12) 1px, transparent 2px) 0 0 / 34px 34px, linear-gradient(170deg, #1d2a4f, #0f1730); --c-text: #eef0f8; --c-accent: #e2c27a; --c-soft: #b8bfd6; }
+.theme-fresh   { --page: #e2f2eb; --c-bg: linear-gradient(180deg, #f1fbf7, #dff3ea); --c-text: #23463a; --c-accent: #2f9a76; --c-soft: #5d8576; }
+.theme-henna   { --page: #3a0917; --page-ink: #f3d1b5; --c-bg: radial-gradient(ellipse at 50% 0, #ffcf6b40, transparent 60%), linear-gradient(170deg, #7a1832, #4c0d1f); --c-text: #fff2e2; --c-accent: #f4c15d; --c-soft: #f3d1b5; }
+.theme-party   { --page: #efe6ff; --c-bg: radial-gradient(circle at 12% 18%, #ffd34d 0 6px, transparent 7px), radial-gradient(circle at 85% 12%, #4dd6ff 0 7px, transparent 8px), radial-gradient(circle at 90% 80%, #ff6fa8 0 8px, transparent 9px), radial-gradient(circle at 10% 88%, #8fe36b 0 6px, transparent 7px), linear-gradient(160deg, #fff, #f6efff); --c-text: #2d2142; --c-accent: #8a3ffc; --c-soft: #6b5f80; }
+.theme-minimal { --page: #f2f2f2; --c-bg: #ffffff; --c-text: #161616; --c-accent: #161616; --c-soft: #6b6b6b; }
+.theme-rosegold { --page: #f6e4de; --c-bg: radial-gradient(ellipse at 100% 0, #f3c9bb 0, transparent 45%), radial-gradient(ellipse at 0 100%, #f0d3c7 0, transparent 50%), linear-gradient(180deg, #fff8f5, #fbe9e3); --c-text: #4b3330; --c-accent: #b76e5d; --c-soft: #8f6c64; }
+.theme-olive   { --page: #e7e8d8; --c-bg: radial-gradient(ellipse 60px 26px at 18px 40px, #a9b67a66 98%, transparent), radial-gradient(ellipse 60px 26px at calc(100% - 18px) calc(100% - 40px), #a9b67a66 98%, transparent), radial-gradient(ellipse 40px 18px at 60px 18px, #8c9c5a55 98%, transparent), radial-gradient(ellipse 40px 18px at calc(100% - 60px) calc(100% - 18px), #8c9c5a55 98%, transparent), #f7f6ec; --c-text: #3a3f2a; --c-accent: #66763a; --c-soft: #737a5c; }
+.theme-royal   { --page: #050505; --page-ink: #d9c38a; --c-bg: radial-gradient(ellipse at 50% 0, #d4af3726, transparent 55%), linear-gradient(180deg, #161616, #0b0b0b); --c-text: #f3ecd9; --c-accent: #d4af37; --c-soft: #b9ad8f; }
+.theme-ocean   { --page: #d4ecf5; --c-bg: radial-gradient(ellipse 140% 50px at 50% 100%, #9fd3e6 98%, transparent), radial-gradient(ellipse 140% 70px at 30% 100%, #c4e6f1 98%, transparent), linear-gradient(180deg, #f6fbfd, #e3f3f9); --c-text: #173a4a; --c-accent: #1b6f93; --c-soft: #4f7686; }
+.theme-boho    { --page: #efdccd; --c-bg: radial-gradient(circle at 50% -40px, transparent 150px, #e7b99a55 151px 175px, transparent 176px 205px, #d98e6633 206px 230px, transparent 231px), #f8ece2; --c-text: #4a2c1f; --c-accent: #b5562f; --c-soft: #8a6352; }
+.theme-marble  { --page: #e9e9e9; --c-bg: linear-gradient(115deg, transparent 30%, #d9d9d966 31%, transparent 33%), linear-gradient(60deg, transparent 55%, #cfcfcf55 56%, transparent 57.5%), linear-gradient(150deg, transparent 72%, #dcdcdc66 73%, transparent 74%), linear-gradient(180deg, #ffffff, #f2f2f0); --c-text: #2f2f2f; --c-accent: #9a7b3f; --c-soft: #6e6e6e; }
+.theme-kids    { --page: #e7f4ff; --c-bg: radial-gradient(ellipse 16px 20px at 14% 14%, #ff8fab 98%, transparent), radial-gradient(ellipse 14px 18px at 22% 20%, #ffd166 98%, transparent), radial-gradient(ellipse 16px 20px at 86% 15%, #7bdff2 98%, transparent), radial-gradient(ellipse 14px 18px at 79% 22%, #b5e48c 98%, transparent), radial-gradient(ellipse 16px 20px at 88% 86%, #cdb4db 98%, transparent), linear-gradient(180deg, #fffdf5, #eef8ff); --c-text: #2f3a56; --c-accent: #ff7a59; --c-soft: #5e6b85; }
+.theme-royal .card-ornament, .theme-royal .card-names { filter: drop-shadow(0 0 6px #d4af3755); }
+.theme-kids .card-names { font-family: 'Heebo', sans-serif; font-weight: 800; }
 .invite-card[class*="theme-"] { background: var(--c-bg); }
 .theme-minimal::before { border-width: 1px; opacity: .2; }
 .theme-minimal .card-names { font-family: 'Heebo', sans-serif; font-weight: 800; letter-spacing: -.5px; }
@@ -204,13 +250,7 @@ form .panel-title:not(:first-child) { margin-top: 30px; padding-top: 22px; borde
 .swatch::after { content: 'א'; position: absolute; inset: 0; display: grid; place-items: center; font: 900 1.6rem var(--serif); color: var(--c-accent); }
 
 /* ===== עמוד האורח ===== */
-.guest-page { min-height: 100vh; background: #efe9df; }
-.guest-page.theme-night-page { background: #0b1124; }
-.guest-page.theme-henna-page { background: #3a0917; }
-.guest-page.theme-floral-page { background: #fbe9ec; }
-.guest-page.theme-fresh-page { background: #e2f2eb; }
-.guest-page.theme-party-page { background: #efe6ff; }
-.guest-page.theme-minimal-page { background: #f2f2f2; }
+.guest-page { min-height: 100vh; background: var(--page, #efe9df); }
 
 .guest-main { width: min(520px, 100% - 32px); margin: 0 auto; padding: 24px 0 40px; animation: rise .7s ease both; }
 .guest-main .invite-card { box-shadow: 0 20px 50px rgba(0,0,0,.18); }
@@ -241,7 +281,10 @@ form .panel-title:not(:first-child) { margin-top: 30px; padding-top: 22px; borde
 .stepper input { text-align: center; font-weight: 800; font-size: 1.1rem; }
 
 .made-with { text-align: center; margin-top: 24px; font-size: .9rem; }
-.theme-night-page .made-with a, .theme-henna-page .made-with a { color: #e8e2f3; }
+.guest-page .made-with a { color: var(--page-ink, inherit); }
+.rsvp-alt { display: block; text-align: center; margin-top: 12px; color: var(--whatsapp); font-weight: 700; }
+.rsvp-thanks { text-align: center; }
+.rsvp-thanks p { font-size: 1.15rem; font-weight: 700; margin: 0 0 14px; }
 .invalid { text-align: center; margin-top: 60px; }
 
 /* מעטפה */
@@ -296,6 +339,8 @@ form .panel-title:not(:first-child) { margin-top: 30px; padding-top: 22px; borde
   .field-row { grid-template-columns: 1fr 1fr; }
   .field-row .field:first-child { grid-column: 1 / -1; }
   .guest-form { grid-template-columns: 1fr 1fr; }
+  .sync-form { grid-template-columns: 1fr; }
+  .reminder-buttons .btn { width: 100%; justify-content: space-between; }
   .guest-form .btn { grid-column: 1 / -1; }
   .invite-card { padding: 40px 22px; min-height: 500px; }
   .cd-unit { min-width: 62px; }

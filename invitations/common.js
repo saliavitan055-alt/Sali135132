@@ -18,7 +18,14 @@ const THEMES = {
   fresh:   'מנטה רענן',
   henna:   'חינה',
   party:   'מסיבה צבעונית',
-  minimal: 'מינימליסטי'
+  minimal: 'מינימליסטי',
+  rosegold: 'רוז גולד',
+  olive:   'זית בוטני',
+  royal:   'שחור וזהב',
+  ocean:   'ים כחול',
+  boho:    'בוהו טרקוטה',
+  marble:  'שיש לבן',
+  kids:    'בלונים לילדים'
 };
 
 const HE_DAYS = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
@@ -43,10 +50,14 @@ function decodeInvite(str) {
   }
 }
 
-function inviteUrl(data, guestName) {
+// guest: { name, id } – קישור אישי למוזמן מהרשימה
+function inviteUrl(data, guest) {
   const base = new URL('invite.html', location.href);
   const params = new URLSearchParams({ d: encodeInvite(data) });
-  if (guestName) params.set('g', guestName);
+  if (guest) {
+    params.set('g', guest.name);
+    params.set('gi', guest.id);
+  }
   base.hash = params.toString();
   return base.toString();
 }

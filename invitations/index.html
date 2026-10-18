@@ -137,7 +137,22 @@
         <h2 class="panel-title"><span class="num">✓</span>רשימת מוזמנים ואישורי הגעה</h2>
         <div class="stats" id="stats"></div>
       </div>
-      <p class="hint">כל מוזמן מקבל קישור אישי עם השם שלו. עדכנו כאן את הסטטוס לפי התשובות שמגיעות בוואטסאפ. הרשימה נשמרת בדפדפן הזה בלבד.</p>
+      <p class="hint">כל מוזמן מקבל קישור אישי עם השם שלו. אם חיברתם גוגל שיטס (למטה), התשובות מתעדכנות כאן לבד. אחרת, עדכנו את הסטטוס לפי ההודעות בוואטסאפ. הרשימה נשמרת בדפדפן הזה.</p>
+
+      <div class="sync-bar" id="sync-bar" hidden>
+        <span class="sync-dot" aria-hidden="true"></span>
+        <span id="sync-status">עדכון אוטומטי פעיל</span>
+        <button type="button" class="btn btn-ghost btn-sm" id="sync-now">רענון עכשיו</button>
+      </div>
+
+      <div class="reminders" id="reminders">
+        <p class="reminder-tip" id="reminder-tip" hidden></p>
+        <div class="reminder-buttons">
+          <button type="button" class="btn btn-ghost" id="remind-pending">🔔 תזכורת למי שלא ענה <b id="pending-count">0</b></button>
+          <button type="button" class="btn btn-ghost" id="remind-coming">📍 תזכורת לפני האירוע למגיעים <b id="coming-count">0</b></button>
+          <button type="button" class="btn btn-ghost" id="invite-unsent">✉️ שליחה למי שעוד לא קיבל <b id="unsent-count">0</b></button>
+        </div>
+      </div>
 
       <form id="guest-form" class="guest-form" autocomplete="off">
         <input name="name" required placeholder="שם המוזמן/ים" aria-label="שם המוזמן">
@@ -161,7 +176,59 @@
         <p class="empty" id="guests-empty">עדיין אין מוזמנים ברשימה.</p>
       </div>
     </section>
+
+    <section class="panel sync-panel">
+      <details id="sync-details">
+        <summary>
+          <span class="panel-title"><span class="num">⚡</span>עדכון אוטומטי של אישורי הגעה</span>
+          <span class="badge" id="sync-badge">לא מחובר</span>
+        </summary>
+        <p>מחברים פעם אחת גיליון גוגל (חינם). אחרי זה, כשאורח מאשר הגעה בהזמנה, התשובה נשמרת בגיליון ומופיעה כאן ברשימה לבד, בלי להעתיק מוואטסאפ. התקנה של כ-5 דקות:</p>
+        <ol class="setup-steps">
+          <li>פתחו גיליון חדש ב-<a href="https://sheets.new" target="_blank" rel="noopener">sheets.new</a>.</li>
+          <li>בתפריט: <b>תוספים ← Apps Script</b>. מחקו את מה שיש שם והדביקו את הקוד:
+            <div class="code-actions">
+              <button type="button" class="btn btn-ghost btn-sm" id="copy-script">העתקת הקוד</button>
+              <a class="btn btn-ghost btn-sm" href="apps-script.gs" target="_blank" rel="noopener">צפייה בקוד</a>
+            </div>
+          </li>
+          <li>בשורה <code>ADMIN_KEY</code> בראש הקוד, החליפו את הטקסט בסיסמה משלכם ושמרו.</li>
+          <li>לחצו <b>פריסה ← פריסה חדשה</b>, בחרו סוג <b>אפליקציית אינטרנט</b>. בשדה "מי יכול לגשת" בחרו <b>כל אחד</b>, ולחצו "פריסה" (ואשרו את ההרשאות).</li>
+          <li>העתיקו את כתובת אפליקציית האינטרנט (מסתיימת ב-<code dir="ltr">/exec</code>) והדביקו כאן יחד עם הסיסמה:</li>
+        </ol>
+        <form id="sync-form" class="sync-form" autocomplete="off">
+          <div class="field">
+            <label for="s-url">כתובת אפליקציית האינטרנט</label>
+            <input id="s-url" name="url" type="url" dir="ltr" placeholder="https://script.google.com/macros/s/.../exec">
+          </div>
+          <div class="field">
+            <label for="s-key">סיסמה (ADMIN_KEY)</label>
+            <input id="s-key" name="key" type="password" dir="ltr">
+          </div>
+          <div class="sync-form-actions">
+            <button type="submit" class="btn btn-primary">שמירה ובדיקת חיבור</button>
+            <button type="button" class="btn btn-ghost" id="sync-disconnect">ניתוק</button>
+          </div>
+        </form>
+        <p class="hint">חשוב: אחרי החיבור, צרו את הקישור מחדש ושלחו אותו (הקישורים הישנים לא יודעים על הגיליון). אם יש מוזמנים ששמם לא ברשימה, הם יתווספו לבד.</p>
+      </details>
+    </section>
   </main>
+
+  <dialog class="remind-dialog" id="remind-dialog">
+    <form method="dialog">
+      <h3 id="remind-title">שליחת תזכורות</h3>
+      <p class="remind-progress" id="remind-progress"></p>
+      <div class="remind-guest" id="remind-guest"></div>
+      <textarea id="remind-text" rows="6" aria-label="נוסח ההודעה"></textarea>
+      <div class="remind-actions">
+        <button type="button" class="btn btn-whatsapp" id="remind-send">שליחה בוואטסאפ</button>
+        <button type="button" class="btn btn-ghost" id="remind-skip">דילוג</button>
+        <button type="submit" class="btn btn-ghost" value="close">סיום</button>
+      </div>
+      <p class="hint">אחרי כל שליחה חזרו לכאן, וההודעה הבאה תהיה מוכנה.</p>
+    </form>
+  </dialog>
 
   <footer class="app-footer">
     <div class="container">הזמנה דיגיטלית · ללא הרשמה, ללא עלות</div>
