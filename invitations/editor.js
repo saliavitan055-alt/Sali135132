@@ -54,8 +54,33 @@ const themePicker = document.getElementById('theme-picker');
 Object.entries(THEMES).forEach(([key, name]) => {
   const label = document.createElement('label');
   label.className = 'theme-option';
-  label.innerHTML = `<input type="radio" name="th" value="${key}"><span class="swatch theme-${key}"></span><span class="theme-name">${name}</span>`;
+  label.dataset.tags = (THEME_TAGS[key] || []).join(' ');
+  label.innerHTML = `<input type="radio" name="th" value="${key}"><span class="swatch theme-${key}">${decorMarkup(key)}</span><span class="theme-name">${name}</span>`;
   themePicker.appendChild(label);
+});
+
+// סינון העיצובים לפי קטגוריה
+const themeTabs = document.getElementById('theme-tabs');
+const TYPE_TO_CATEGORY = { wedding: 'wedding', henna: 'henna', bar: 'mitzvah', bat: 'mitzvah', brit: 'brit', birthday: 'birthday', business: 'business' };
+Object.entries(THEME_CATEGORIES).forEach(([key, label]) => {
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'theme-tab';
+  btn.dataset.cat = key;
+  btn.setAttribute('role', 'tab');
+  btn.textContent = label;
+  themeTabs.appendChild(btn);
+});
+
+function filterThemes(cat) {
+  themeTabs.querySelectorAll('.theme-tab').forEach((b) => b.setAttribute('aria-selected', b.dataset.cat === cat));
+  themePicker.querySelectorAll('.theme-option').forEach((opt) => {
+    opt.hidden = cat !== 'all' && !opt.dataset.tags.split(' ').includes(cat);
+  });
+}
+
+themeTabs.addEventListener('click', (e) => {
+  if (e.target.dataset.cat) filterThemes(e.target.dataset.cat);
 });
 
 const fxChips = document.getElementById('fx-chips');
@@ -115,13 +140,18 @@ function syncTypeUi() {
   document.getElementById('ct-label').textContent = form.elements.t.value === 'wedding' ? 'חופה' : 'תחילת הטקס';
 }
 
+let previewTheme = null;
+
 function updatePreview() {
   // id – לזיהוי האירוע בגיליון; r – כתובת הגיליון שאליה האורחים שולחים אישור
   current.data = { ...readForm(), id: current.id };
   if (current.data.fx === 'none') delete current.data.fx;
   if (current.data.mu !== 'custom') delete current.data.mx;
   if (settings.url) current.data.r = settings.url;
-  renderCard(preview, current.data);
+  // אנימציית הכניסה רק כשמחליפים עיצוב, לא בכל הקלדה
+  const intro = previewTheme !== null && previewTheme !== current.data.th;
+  previewTheme = current.data.th;
+  renderCard(preview, current.data, '', { intro });
 }
 
 form.addEventListener('input', updatePreview);
@@ -134,6 +164,7 @@ form.addEventListener('change', (e) => {
       form.elements.th.value = EVENT_TYPES[e.target.value].defaults.th;
     }
     form.dataset.prevType = e.target.value;
+    filterThemes(TYPE_TO_CATEGORY[e.target.value] || 'all');
   }
   if (e.target.name === 'fx') startEffect(document.querySelector('.phone-frame'), e.target.value);
   if (e.target.name === 'mu') {
@@ -230,6 +261,7 @@ function loadCurrent() {
   setMusicButton(false);
   fillForm(current.data);
   if (!current.data.fx) form.elements.fx.value = 'none';
+  filterThemes(TYPE_TO_CATEGORY[current.data.t] || 'all');
   startEffect(document.querySelector('.phone-frame'), current.data.fx);
   form.dataset.prevType = current.data.t;
   document.getElementById('share-box').hidden = true;

@@ -18,7 +18,7 @@ function initInvite() {
   document.body.classList.add(`theme-${THEMES[data.th] ? data.th : 'gold'}`);
   document.getElementById('env-to').textContent = guestName ? `${guestName}, הוזמנתם!` : 'הוזמנתם!';
 
-  renderCard(document.getElementById('card'), data, guestName);
+  renderCard(document.getElementById('card'), data, guestName, { intro: true });
 
   document.getElementById('open-envelope').addEventListener('click', () => {
     startMusic();

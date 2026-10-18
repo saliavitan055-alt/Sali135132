@@ -133,18 +133,30 @@ function formatHebrewDate(data) {
 }
 
 // --- רינדור כרטיס ההזמנה ---
-function renderCard(el, data, guestName) {
+// שכבת הקישוט של עיצוב מאויר (designs.js), אם יש
+function decorMarkup(theme) {
+  const design = typeof DESIGNS !== 'undefined' && DESIGNS[theme];
+  return design ? `<div class="card-decor" aria-hidden="true">${design.decor()}</div>` : '';
+}
+
+// opts.intro – מנגן את אנימציית הכניסה של ההזמנה
+function renderCard(el, data, guestName, opts = {}) {
   const type = EVENT_TYPES[data.t] || EVENT_TYPES.other;
-  el.className = `invite-card theme-${THEMES[data.th] ? data.th : 'gold'}`;
+  const theme = THEMES[data.th] ? data.th : 'gold';
+  const design = typeof DESIGNS !== 'undefined' && DESIGNS[theme];
+  el.className = `invite-card theme-${theme}${design ? ' has-decor' : ''}${opts.intro ? ' intro' : ''}`;
+  const icon = design && design.icon === 'star' ? starIcon()
+    : design && design.icon === 'none' ? '' : `<div class="card-icon" aria-hidden="true">${type.icon}</div>`;
 
   const times = [];
   if (data.tm) times.push(`קבלת פנים: ${escapeHtml(data.tm)}`);
   if (data.ct) times.push(`${data.t === 'wedding' ? 'חופה וקידושין' : 'טקס'}: ${escapeHtml(data.ct)}`);
 
   el.innerHTML = `
+    ${decorMarkup(theme)}
     <div class="card-ornament top" aria-hidden="true"></div>
     ${guestName ? `<p class="card-guest">לכבוד ${escapeHtml(guestName)}</p>` : ''}
-    <div class="card-icon" aria-hidden="true">${type.icon}</div>
+    ${icon}
     <p class="card-headline">${escapeHtml(data.h || type.headline)}</p>
     <h2 class="card-names">${escapeHtml(data.n || 'שם בעלי השמחה')}</h2>
     ${data.s ? `<p class="card-sub">${escapeHtml(data.s)}</p>` : ''}

@@ -105,10 +105,13 @@ form .panel-title:not(:first-child) { margin-top: 30px; padding-top: 22px; borde
 .chip input:focus-visible + span { outline: 2px solid var(--primary); outline-offset: 2px; }
 
 /* בחירת עיצוב */
-.themes { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 12px; }
+.themes { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 12px; }
+.theme-tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 10px; scrollbar-width: thin; }
+.theme-tab { flex-shrink: 0; border: 1px solid var(--border); background: #fff; border-radius: 99px; padding: 6px 12px; font: 500 .88rem 'Heebo', sans-serif; cursor: pointer; color: var(--text); }
+.theme-tab[aria-selected="true"] { background: var(--text); border-color: var(--text); color: #fff; }
 .theme-option { cursor: pointer; text-align: center; }
 .theme-option input { position: absolute; opacity: 0; pointer-events: none; }
-.swatch { display: block; height: 70px; border-radius: 12px; border: 3px solid transparent; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); transition: border-color .15s, transform .15s; }
+.swatch { display: block; height: auto; aspect-ratio: 3 / 4; overflow: hidden; border-radius: 12px; border: 3px solid transparent; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); transition: border-color .15s, transform .15s; }
 .theme-option input:checked + .swatch { border-color: var(--primary); transform: translateY(-2px); }
 .theme-option input:focus-visible + .swatch { outline: 2px solid var(--primary); outline-offset: 2px; }
 .theme-name { display: block; font-size: .82rem; margin-top: 5px; font-weight: 500; }
@@ -257,10 +260,122 @@ form .panel-title:not(:first-child) { margin-top: 30px; padding-top: 22px; borde
 .theme-corporate .card-names { font-family: 'Heebo', sans-serif; font-weight: 800; }
 .theme-corporate::before { opacity: .15; }
 .invite-card[class*="theme-"] { background: var(--c-bg); }
+
+/* ===== עיצובים מאוירים (designs.js) ===== */
+.card-decor { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; font-size: 10px; pointer-events: none; }
+.has-decor > :not(.card-decor):not(.fx) { position: relative; z-index: 1; }
+.invite-card.has-decor::before, .has-decor .card-ornament { display: none; }
+.dframe, .dfull { position: absolute; inset: 0; width: 100%; height: 100%; }
+.dframe * { vector-effect: non-scaling-stroke; }
+.dp { position: absolute; }
+.dp svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.dp.mirror.corner-tr { transform: scaleX(-1); }
+.dp.mirror.corner-bl { transform: scaleY(-1); }
+.dp.mirror.corner-br { transform: scale(-1); }
+.card-star-wrap { perspective: 600px; margin-bottom: 10px; }
+.card-star { width: 54px; height: 54px; display: block; filter: drop-shadow(0 2px 3px rgba(0,0,0,.25)); }
+
+.theme-goldfloral { --page: #e9e1cf; --c-bg: #fbf7ee; --c-text: #5a4630; --c-accent: #a8822f; --c-soft: #7c6a50; }
+.invite-card.theme-goldfloral { padding: 80px 48px; }
+.theme-goldfloral .card-names, .theme-goldfloral .card-headline { color: #a8822f; }
+
+.theme-navydeco { --page: #0e1a38; --page-ink: #e0c378; --c-bg: radial-gradient(ellipse at 50% 40%, #26407a, #162750 75%); --c-text: #f3ead2; --c-accent: #e2c27a; --c-soft: #cfc6ad; }
+.invite-card.theme-navydeco { padding: 56px 48px 64px; }
+
+.theme-blackconfetti { --page: #050505; --page-ink: #d9b35b; --c-bg: radial-gradient(ellipse at 50% 30%, #222, #121212 70%); --c-text: #f2ead4; --c-accent: #e0bb62; --c-soft: #c9bea2; }
+.invite-card.theme-blackconfetti { padding: 64px 44px; }
+.theme-blackconfetti .card-names { font-size: clamp(2.3rem, 8vw, 3rem); }
+
+.theme-kotelarch { --page: #cbb68e; --c-bg: #d8c39b; --c-text: #f3ead2; --c-accent: #e6c46e; --c-soft: #d8cfb8; }
+.invite-card.theme-kotelarch { padding: 118px 64px 46px; }
+.theme-kotelarch .card-names { font-size: clamp(2.2rem, 8vw, 2.9rem); }
+
+.theme-chuppah { --page: #ece2d0; --c-bg: #faf6ee; --c-text: #4a3a28; --c-accent: #a8823a; --c-soft: #7b6a52; }
+.invite-card.theme-chuppah { padding: 205px 36px 50px; justify-content: flex-start; }
+
+.theme-kotelsunset { --page: #4a2c14; --page-ink: #f2c46d; --c-bg: linear-gradient(180deg, #7a4d29, #59361b); --c-text: #fbeedd; --c-accent: #f2c46d; --c-soft: #e8d3b6; }
+.invite-card.theme-kotelsunset { padding: 245px 36px 46px; justify-content: flex-start; }
+
+.theme-hennamandala { --page: #12605c; --page-ink: #f0c35c; --c-bg: #1d8580; --c-text: #fff0dc; --c-accent: #f0c35c; --c-soft: #f1d9c0; }
+.invite-card.theme-hennamandala { padding: 78px 52px; }
+
+.theme-butterflies { --page: #f6e4ee; --c-bg: radial-gradient(ellipse at 20% 15%, #f8d3e1, transparent 50%), radial-gradient(ellipse at 85% 80%, #e3d2f4, transparent 55%), radial-gradient(ellipse at 80% 20%, #efe0f7, transparent 45%), #fcf1f5; --c-text: #5e3a58; --c-accent: #b0569a; --c-soft: #8c6886; }
+.invite-card.theme-butterflies { padding: 92px 40px 60px; }
+.theme-butterflies .card-names { font-family: 'Heebo', sans-serif; font-weight: 800; text-shadow: 0 2px 0 #fff, 0 0 12px #fff; }
+
+.theme-woodland { --page: #e5efdc; --c-bg: radial-gradient(ellipse at 80% 8%, #f9efc4, transparent 40%), radial-gradient(ellipse at 95% 45%, #d7e8f5, transparent 35%), #f4f8ee; --c-text: #45604c; --c-accent: #6e9a78; --c-soft: #64806b; }
+.invite-card.theme-woodland { padding: 86px 50px 150px; }
+.theme-woodland .card-names { font-family: 'Heebo', sans-serif; font-weight: 800; }
+
+.theme-bohofloral { --page: #ebe1d1; --c-bg: #f8f2e8; --c-text: #3e3024; --c-accent: #4a3424; --c-soft: #6f5f50; }
+.invite-card.theme-bohofloral { padding: 150px 40px 120px; }
+.theme-bohofloral .card-names { font-family: 'Amatic SC', 'Frank Ruhl Libre', serif; font-weight: 700; font-size: clamp(2.8rem, 10vw, 3.6rem); }
+.theme-bohofloral .card-divider span { background: #c8a85c; }
+
+.theme-balloonsnavy { --page: #0a1a3d; --page-ink: #4fd6dc; --c-bg: radial-gradient(ellipse at 50% 40%, #1d4592, #0d2352 75%); --c-text: #ffffff; --c-accent: #f2c55c; --c-soft: #cfe0ff; }
+.invite-card.theme-balloonsnavy { padding: 92px 48px 80px; }
+.theme-balloonsnavy .card-names { font-family: 'Heebo', sans-serif; font-weight: 900; font-size: clamp(2.3rem, 8vw, 3rem); text-shadow: 0 3px 10px rgba(0,0,0,.35); }
+.theme-balloonsnavy .card-headline { color: #4fd6dc; font-weight: 700; }
+
+.theme-geonavy { --page: #dfe5f0; --c-bg: #fbfbfd; --c-text: #1b2f5e; --c-accent: #1b2f5e; --c-soft: #4b587a; }
+.invite-card.theme-geonavy { padding: 64px 46px; }
+.theme-geonavy .card-names { font-family: 'Heebo', sans-serif; font-weight: 900; }
+.theme-geonavy .card-divider span { background: #c9a24d; }
+
+.theme-luxury { --page: #070d1f; --page-ink: #e6c26a; --c-bg: radial-gradient(ellipse at 50% 35%, #1b2a4f, #0b1328 75%); --c-text: #f3ead2; --c-accent: #e6c26a; --c-soft: #cdbf9c; }
+.invite-card.theme-luxury { padding: 84px 50px; }
+.theme-luxury .card-names, .theme-luxury .card-headline, .theme-luxury .card-date, .theme-luxury .card-family {
+  background: linear-gradient(100deg, #b8862f 0%, #f6e3a1 20%, #d4a84b 35%, #fff6d0 50%, #c9962f 65%, #f1d58a 80%, #a87a2c 100%);
+  background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.theme-luxury .card-names { font-size: clamp(2.3rem, 8vw, 3rem); animation: lux-shine 5s 3.5s linear infinite; filter: drop-shadow(0 2px 2px rgba(0,0,0,.5)); }
+.theme-luxury .card-star { width: 64px; height: 64px; }
+.lux-flow { stroke-dasharray: .1 1.9; animation: lux-flow 6s linear infinite; }
+.lux-twinkle { animation: fx-twinkle 3.5s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.lux-corner svg { filter: drop-shadow(0 2px 2px rgba(0,0,0,.45)); }
+@keyframes lux-flow { to { stroke-dashoffset: -40; } }
+@keyframes lux-shine { from { background-position: 100% 0; } to { background-position: -120% 0; } }
+
+/* אנימציית כניסה: הטקסט עולה בהדרגה */
+.invite-card.intro > :not(.card-decor):not(.fx) { animation: card-in .9s cubic-bezier(.2, .7, .2, 1) both; }
+.invite-card.intro > :nth-child(3) { animation-delay: .1s; } .invite-card.intro > :nth-child(4) { animation-delay: .2s; }
+.invite-card.intro > :nth-child(5) { animation-delay: .3s; } .invite-card.intro > :nth-child(6) { animation-delay: .45s; }
+.invite-card.intro > :nth-child(7) { animation-delay: .55s; } .invite-card.intro > :nth-child(8) { animation-delay: .65s; }
+.invite-card.intro > :nth-child(9) { animation-delay: .75s; } .invite-card.intro > :nth-child(10) { animation-delay: .85s; }
+.invite-card.intro > :nth-child(n+11) { animation-delay: .95s; }
+@keyframes card-in { from { opacity: 0; transform: translateY(14px); } }
+
+/* יוקרה: מסגרת, פינות וכוכב מסתובב לפני הטקסט (בהשראת סרטון ההזמנה) */
+.invite-card.theme-luxury.intro > :not(.card-decor):not(.fx) { animation-duration: 1.2s; }
+.invite-card.theme-luxury.intro > :nth-child(3) { animation-delay: 1.30s; }
+.invite-card.theme-luxury.intro > :nth-child(4) { animation-delay: 1.52s; }
+.invite-card.theme-luxury.intro > :nth-child(5) { animation-delay: 1.74s; }
+.invite-card.theme-luxury.intro > :nth-child(6) { animation-delay: 1.96s; }
+.invite-card.theme-luxury.intro > :nth-child(7) { animation-delay: 2.18s; }
+.invite-card.theme-luxury.intro > :nth-child(8) { animation-delay: 2.40s; }
+.invite-card.theme-luxury.intro > :nth-child(9) { animation-delay: 2.62s; }
+.invite-card.theme-luxury.intro > :nth-child(10) { animation-delay: 2.84s; }
+.invite-card.theme-luxury.intro > :nth-child(11) { animation-delay: 3.06s; }
+.invite-card.theme-luxury.intro > :nth-child(n+12) { animation-delay: 3.3s; }
+.theme-luxury.intro .lux-frame { animation: lux-fade 1.2s ease both; }
+.theme-luxury.intro .lux-corner { animation: lux-corner 1.3s .3s cubic-bezier(.2, .8, .2, 1.15) both; }
+.theme-luxury.intro .card-star-wrap { animation: none !important; }
+.theme-luxury.intro .card-star { animation: lux-spin 2.2s .7s cubic-bezier(.2, .7, .2, 1) both; }
+@keyframes lux-fade { from { opacity: 0; } }
+@keyframes lux-corner { from { opacity: 0; scale: .4; } }
+@keyframes lux-spin { from { opacity: 0; transform: rotateY(900deg) scale(.3); } 60% { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .invite-card.intro *, .invite-card.intro > *, .lux-flow, .lux-twinkle, .theme-luxury .card-names { animation: none !important; }
+}
+
+/* תצוגת דוגמה קטנה בבחירת העיצוב */
+.swatch .card-decor { font-size: 2.3px; border-radius: 9px; }
+.swatch .dframe * { vector-effect: none; }
 .theme-minimal::before { border-width: 1px; opacity: .2; }
 .theme-minimal .card-names { font-family: 'Heebo', sans-serif; font-weight: 800; letter-spacing: -.5px; }
 .swatch { background: var(--c-bg); position: relative; }
-.swatch::after { content: 'א'; position: absolute; inset: 0; display: grid; place-items: center; font: 900 1.6rem var(--serif); color: var(--c-accent); }
+.swatch::after { z-index: 2; content: 'א'; position: absolute; inset: 0; display: grid; place-items: center; font: 900 1.6rem var(--serif); color: var(--c-accent); }
 
 /* ===== עמוד האורח ===== */
 .guest-page { min-height: 100vh; background: var(--page, #efe9df); }
