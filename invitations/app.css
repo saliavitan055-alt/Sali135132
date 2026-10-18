@@ -1,0 +1,314 @@
+/* ===== הזמנה דיגיטלית ===== */
+:root {
+  --bg: #faf7f2;
+  --surface: #ffffff;
+  --text: #2b2433;
+  --muted: #6f6779;
+  --border: #e7e1d8;
+  --primary: #7a4fd6;
+  --primary-dark: #5d36b5;
+  --whatsapp: #1fa855;
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(43, 36, 51, .08);
+  --serif: 'Frank Ruhl Libre', serif;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: 'Heebo', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+a { color: inherit; }
+.container { width: min(1180px, 100% - 32px); margin-inline: auto; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+/* ===== כפתורים ושדות ===== */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 11px 20px; border-radius: 12px; border: 1px solid transparent;
+  font: 700 1rem 'Heebo', sans-serif; cursor: pointer; text-decoration: none;
+  transition: transform .15s, background .15s, box-shadow .15s;
+}
+.btn:active { transform: scale(.97); }
+.btn-primary { background: var(--primary); color: #fff; box-shadow: 0 6px 16px rgba(122, 79, 214, .3); }
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-ghost { background: var(--surface); border-color: var(--border); color: var(--text); }
+.btn-ghost:hover { border-color: var(--primary); color: var(--primary); }
+.btn-whatsapp { background: var(--whatsapp); color: #fff; }
+.btn-whatsapp:hover { filter: brightness(1.06); }
+.btn-block { width: 100%; padding: 14px; font-size: 1.08rem; }
+.btn-sm { padding: 6px 12px; font-size: .88rem; border-radius: 9px; }
+.btn-icon { border: 0; background: none; color: var(--muted); font-size: 1rem; cursor: pointer; padding: 6px; border-radius: 8px; }
+.btn-icon:hover { background: #fde8e8; color: #c62828; }
+
+input, textarea, select {
+  width: 100%; padding: 11px 13px; border: 1px solid var(--border); border-radius: 11px;
+  font: inherit; color: var(--text); background: #fff;
+}
+input:focus, textarea:focus, select:focus { outline: 2px solid rgba(122, 79, 214, .35); border-color: var(--primary); }
+textarea { resize: vertical; }
+
+.field { margin: 0 0 16px; border: 0; padding: 0; min-width: 0; }
+.field label, .field legend { display: block; font-weight: 700; margin-bottom: 6px; font-size: .95rem; }
+.field small, .hint { color: var(--muted); font-weight: 400; font-size: .85rem; }
+.field-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+.panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); }
+.panel-title { display: flex; align-items: center; gap: 10px; font-size: 1.25rem; margin: 8px 0 18px; }
+.panel-title .num {
+  display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+  background: var(--primary); color: #fff; font-size: .95rem; flex-shrink: 0;
+}
+form .panel-title:not(:first-child) { margin-top: 30px; padding-top: 22px; border-top: 1px dashed var(--border); }
+
+/* ===== כותרת ===== */
+.app-header { background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 20; }
+.header-inner { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-size: 1.2rem; }
+.brand-mark { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 11px; background: linear-gradient(135deg, var(--primary), #d6589f); color: #fff; font-size: 1.2rem; }
+.my-events { display: flex; gap: 8px; align-items: center; }
+.my-events select { width: auto; max-width: 220px; padding: 9px 12px; }
+.my-events .btn { white-space: nowrap; padding: 9px 14px; }
+
+.intro { text-align: center; padding: 36px 0 26px; }
+.intro h1 { font-family: var(--serif); font-size: clamp(1.7rem, 4.5vw, 2.6rem); margin: 0 0 8px; line-height: 1.25; }
+.intro p { color: var(--muted); max-width: 640px; margin: 0 auto 18px; }
+.steps { list-style: none; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; padding: 0; margin: 0; }
+.steps li { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); padding: 6px 14px 6px 8px; border-radius: 99px; font-weight: 500; font-size: .92rem; }
+.steps span { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: #efe8fb; color: var(--primary); font-weight: 800; font-size: .8rem; }
+
+/* ===== פריסת העורך ===== */
+.editor-layout { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 28px; align-items: start; }
+.preview-sticky { position: sticky; top: 84px; }
+.preview-label { text-align: center; font-weight: 700; color: var(--muted); margin: 0 0 10px; font-size: .9rem; letter-spacing: .5px; }
+.phone-frame {
+  border: 10px solid #1f1b24; border-radius: 38px; background: #1f1b24; overflow: hidden;
+  box-shadow: 0 24px 50px rgba(31, 27, 36, .25);
+}
+.phone-frame .invite-card { border-radius: 26px; margin: 0; max-height: 72vh; overflow-y: auto; }
+
+/* סוגי אירוע */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip, .theme-option, .rsvp-choice label { position: relative; }
+.chip input, .theme-option input, .rsvp-choice input { inset: 0; width: 100%; height: 100%; margin: 0; }
+.chip input { position: absolute; opacity: 0; pointer-events: none; }
+.chip span {
+  display: inline-block; padding: 8px 14px; border: 1px solid var(--border); border-radius: 99px;
+  cursor: pointer; font-weight: 500; background: #fff; transition: all .15s;
+}
+.chip input:checked + span { background: var(--primary); border-color: var(--primary); color: #fff; }
+.chip input:focus-visible + span { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+/* בחירת עיצוב */
+.themes { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 12px; }
+.theme-option { cursor: pointer; text-align: center; }
+.theme-option input { position: absolute; opacity: 0; pointer-events: none; }
+.swatch { display: block; height: 70px; border-radius: 12px; border: 3px solid transparent; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); transition: border-color .15s, transform .15s; }
+.theme-option input:checked + .swatch { border-color: var(--primary); transform: translateY(-2px); }
+.theme-option input:focus-visible + .swatch { outline: 2px solid var(--primary); outline-offset: 2px; }
+.theme-name { display: block; font-size: .82rem; margin-top: 5px; font-weight: 500; }
+
+/* שיתוף */
+.share-box { margin-top: 18px; padding: 18px; border-radius: 14px; background: #f3effc; border: 1px solid #ddd0f7; }
+.share-box label { font-weight: 700; display: block; margin-bottom: 6px; }
+.copy-row { display: flex; gap: 8px; }
+.copy-row input { font-size: .85rem; }
+.share-actions { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+.share-actions .btn { flex: 1; }
+
+/* ===== רשימת מוזמנים ===== */
+.guests-panel { margin: 34px 0; }
+.guests-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.guests-head .panel-title { margin: 0; }
+.stats { display: flex; gap: 8px; flex-wrap: wrap; }
+.stat { background: #f4f2f6; padding: 5px 12px; border-radius: 99px; font-size: .9rem; }
+.stat b { font-size: 1.05rem; }
+.stat-yes { background: #e3f6ea; color: #17733b; }
+.stat-maybe { background: #fff4dc; color: #8a5a00; }
+.stat-no { background: #fde8e8; color: #b42318; }
+
+.guest-form { display: grid; grid-template-columns: 2fr 1.4fr auto; gap: 10px; margin: 14px 0 10px; }
+.bulk { margin-bottom: 16px; }
+.bulk summary { cursor: pointer; color: var(--primary); font-weight: 700; padding: 4px 0; }
+.bulk textarea { margin: 8px 0; }
+
+.table-wrap { overflow-x: auto; }
+.guest-table { width: 100%; border-collapse: collapse; }
+.guest-table th { text-align: right; font-size: .85rem; color: var(--muted); font-weight: 500; padding: 8px; border-bottom: 1px solid var(--border); }
+.guest-table td { padding: 8px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.guest-table td[dir="ltr"] { text-align: right; }
+.guest-table select { padding: 6px 8px; width: auto; }
+.guest-table input[type="number"] { width: 70px; padding: 6px 8px; }
+.guest-table tr.status-yes td:first-child { border-right: 4px solid #2bb361; }
+.guest-table tr.status-maybe td:first-child { border-right: 4px solid #f0a500; }
+.guest-table tr.status-no td:first-child { border-right: 4px solid #d93a3a; }
+.row-actions { white-space: nowrap; text-align: left; }
+.empty { text-align: center; color: var(--muted); padding: 18px 0 4px; margin: 0; }
+
+.app-footer { text-align: center; color: var(--muted); padding: 24px 0 40px; font-size: .9rem; }
+
+.toast {
+  position: fixed; bottom: 24px; left: 50%; transform: translate(-50%, 30px); opacity: 0;
+  background: #1f1b24; color: #fff; padding: 12px 20px; border-radius: 12px; font-weight: 500;
+  transition: all .25s; pointer-events: none; z-index: 50;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* ===== כרטיס ההזמנה ===== */
+.invite-card {
+  --c-bg: #fffdf7; --c-text: #3d3426; --c-accent: #b8913a; --c-soft: #8a7a5e;
+  position: relative; text-align: center; padding: 46px 30px; min-height: 560px;
+  background: var(--c-bg); color: var(--c-text);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  border-radius: var(--radius);
+}
+.invite-card::before {
+  content: ''; position: absolute; inset: 12px; border: 1.5px solid var(--c-accent); border-radius: 10px; opacity: .55; pointer-events: none;
+}
+.card-ornament { width: 140px; height: 18px; background:
+  radial-gradient(circle, var(--c-accent) 3px, transparent 3.5px) center / 18px 18px no-repeat,
+  linear-gradient(var(--c-accent), var(--c-accent)) center / 100% 1.5px no-repeat; opacity: .8; }
+.card-ornament.top { margin-bottom: 18px; }
+.card-ornament.bottom { margin-top: 22px; }
+.card-guest { font-weight: 700; color: var(--c-accent); margin: 0 0 6px; font-size: 1.05rem; }
+.card-icon { font-size: 2.2rem; line-height: 1; margin-bottom: 10px; }
+.card-headline { margin: 0 0 10px; font-size: 1.02rem; color: var(--c-soft); max-width: 30ch; }
+.card-names { font-family: var(--serif); font-weight: 900; font-size: clamp(2rem, 7vw, 2.7rem); line-height: 1.15; margin: 4px 0; color: var(--c-accent); overflow-wrap: anywhere; }
+.card-sub { margin: 4px 0 0; color: var(--c-soft); }
+.card-divider { width: 100%; display: flex; justify-content: center; margin: 18px 0; }
+.card-divider span { width: 60px; height: 2px; background: var(--c-accent); border-radius: 2px; }
+.card-date { font-family: var(--serif); font-size: 1.3rem; font-weight: 700; margin: 0; }
+.card-times { margin: 6px 0 0; font-weight: 500; }
+.card-venue { margin: 14px 0 0; font-weight: 800; font-size: 1.12rem; }
+.card-address { margin: 2px 0 0; color: var(--c-soft); }
+.card-message { margin: 18px 0 0; font-style: italic; max-width: 32ch; white-space: pre-line; }
+.card-family { margin: 14px 0 0; font-family: var(--serif); font-weight: 700; color: var(--c-accent); font-size: 1.1rem; }
+
+/* עיצובים */
+.theme-gold    { --c-bg: linear-gradient(180deg, #fffdf6, #f7efdc); --c-text: #3d3426; --c-accent: #b08a34; --c-soft: #7f7058; }
+.theme-floral  { --c-bg: radial-gradient(circle at 0 0, #f8c9d4 0 70px, transparent 71px), radial-gradient(circle at 100% 100%, #f6d6c4 0 90px, transparent 91px), #fff6f7; --c-text: #4a2f37; --c-accent: #c2577a; --c-soft: #8c6670; }
+.theme-night   { --c-bg: radial-gradient(circle at 20% 15%, rgba(255,255,255,.12) 1px, transparent 2px) 0 0 / 34px 34px, linear-gradient(170deg, #1d2a4f, #0f1730); --c-text: #eef0f8; --c-accent: #e2c27a; --c-soft: #b8bfd6; }
+.theme-fresh   { --c-bg: linear-gradient(180deg, #f1fbf7, #dff3ea); --c-text: #23463a; --c-accent: #2f9a76; --c-soft: #5d8576; }
+.theme-henna   { --c-bg: radial-gradient(ellipse at 50% 0, #ffcf6b40, transparent 60%), linear-gradient(170deg, #7a1832, #4c0d1f); --c-text: #fff2e2; --c-accent: #f4c15d; --c-soft: #f3d1b5; }
+.theme-party   { --c-bg: radial-gradient(circle at 12% 18%, #ffd34d 0 6px, transparent 7px), radial-gradient(circle at 85% 12%, #4dd6ff 0 7px, transparent 8px), radial-gradient(circle at 90% 80%, #ff6fa8 0 8px, transparent 9px), radial-gradient(circle at 10% 88%, #8fe36b 0 6px, transparent 7px), linear-gradient(160deg, #fff, #f6efff); --c-text: #2d2142; --c-accent: #8a3ffc; --c-soft: #6b5f80; }
+.theme-minimal { --c-bg: #ffffff; --c-text: #161616; --c-accent: #161616; --c-soft: #6b6b6b; }
+.invite-card[class*="theme-"] { background: var(--c-bg); }
+.theme-minimal::before { border-width: 1px; opacity: .2; }
+.theme-minimal .card-names { font-family: 'Heebo', sans-serif; font-weight: 800; letter-spacing: -.5px; }
+.swatch { background: var(--c-bg); position: relative; }
+.swatch::after { content: 'א'; position: absolute; inset: 0; display: grid; place-items: center; font: 900 1.6rem var(--serif); color: var(--c-accent); }
+
+/* ===== עמוד האורח ===== */
+.guest-page { min-height: 100vh; background: #efe9df; }
+.guest-page.theme-night-page { background: #0b1124; }
+.guest-page.theme-henna-page { background: #3a0917; }
+.guest-page.theme-floral-page { background: #fbe9ec; }
+.guest-page.theme-fresh-page { background: #e2f2eb; }
+.guest-page.theme-party-page { background: #efe6ff; }
+.guest-page.theme-minimal-page { background: #f2f2f2; }
+
+.guest-main { width: min(520px, 100% - 32px); margin: 0 auto; padding: 24px 0 40px; animation: rise .7s ease both; }
+.guest-main .invite-card { box-shadow: 0 20px 50px rgba(0,0,0,.18); }
+
+.countdown { display: flex; justify-content: center; gap: 10px; margin: 20px 0; }
+.cd-unit { background: var(--surface); border-radius: 14px; padding: 10px 6px; min-width: 70px; text-align: center; box-shadow: var(--shadow); }
+.cd-unit b { display: block; font: 900 1.6rem var(--serif); color: var(--primary); line-height: 1.2; }
+.cd-unit span { font-size: .8rem; color: var(--muted); }
+.countdown-done { background: var(--surface); padding: 12px 20px; border-radius: 14px; font-weight: 700; margin: 0; }
+
+.guest-actions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
+.action {
+  display: flex; align-items: center; justify-content: center; gap: 8px; padding: 13px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+  font: 700 .98rem 'Heebo', sans-serif; text-decoration: none; color: var(--text); cursor: pointer;
+}
+.action:hover { border-color: var(--primary); color: var(--primary); }
+.action span { font-size: 1.2rem; }
+
+.rsvp h2 { font-family: var(--serif); text-align: center; margin: 0 0 16px; font-size: 1.6rem; }
+.rsvp-choice { display: grid; gap: 8px; margin-bottom: 16px; }
+.rsvp-choice input { position: absolute; opacity: 0; pointer-events: none; }
+.rsvp-choice span { display: block; padding: 12px 14px; border: 1.5px solid var(--border); border-radius: 12px; cursor: pointer; font-weight: 700; transition: all .15s; }
+.rsvp-choice input:checked + span { border-color: var(--primary); background: #f3effc; color: var(--primary-dark); }
+.rsvp-choice input:focus-visible + span { outline: 2px solid var(--primary); outline-offset: 2px; }
+.stepper { display: flex; align-items: center; gap: 8px; max-width: 200px; }
+.stepper button { width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--border); background: #fff; font-size: 1.3rem; cursor: pointer; flex-shrink: 0; }
+.stepper input { text-align: center; font-weight: 800; font-size: 1.1rem; }
+
+.made-with { text-align: center; margin-top: 24px; font-size: .9rem; }
+.theme-night-page .made-with a, .theme-henna-page .made-with a { color: #e8e2f3; }
+.invalid { text-align: center; margin-top: 60px; }
+
+/* מעטפה */
+.envelope-screen {
+  position: fixed; inset: 0; z-index: 30; display: grid; place-items: center; padding: 16px;
+  background: radial-gradient(circle at 50% 30%, #fff 0, #efe6d6 70%);
+  transition: opacity .8s ease;
+}
+.envelope {
+  position: relative; width: min(360px, 100%); aspect-ratio: 1.45; border: 0; cursor: pointer;
+  background: linear-gradient(160deg, #f6eedd, #e6d6b8); border-radius: 14px;
+  box-shadow: 0 30px 60px rgba(80, 60, 30, .25); font-family: 'Heebo', sans-serif; color: #5b4930;
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 22px;
+  animation: float 3s ease-in-out infinite;
+}
+.env-flap {
+  position: absolute; top: 0; left: 0; right: 0; height: 58%;
+  background: linear-gradient(180deg, #ecdcbc, #dcc69d);
+  clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: top; transition: transform .7s ease;
+  border-radius: 14px 14px 0 0;
+}
+.env-seal {
+  position: absolute; top: 46%; left: 50%; transform: translate(-50%, -50%);
+  width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center;
+  background: radial-gradient(circle at 35% 35%, #d9534f, #9e1f1b); color: #fff; font-size: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,.25); transition: opacity .3s;
+}
+.env-to { font: 700 1.35rem var(--serif); }
+.env-hint { font-size: .88rem; opacity: .75; }
+.envelope-screen.opening { opacity: 0; pointer-events: none; }
+.envelope-screen.opening .env-flap { transform: rotateX(180deg); }
+.envelope-screen.opening .env-seal { opacity: 0; }
+
+@keyframes float { 50% { transform: translateY(-8px); } }
+@keyframes rise { from { opacity: 0; transform: translateY(24px); } }
+@media (prefers-reduced-motion: reduce) {
+  .envelope, .guest-main { animation: none; }
+}
+
+/* ===== מובייל ===== */
+@media (max-width: 920px) {
+  .editor-layout { grid-template-columns: 1fr; }
+  .preview-wrap { order: -1; }
+  .preview-sticky { position: static; }
+  .phone-frame { max-width: 380px; margin: 0 auto; }
+  .phone-frame .invite-card { max-height: none; }
+}
+@media (max-width: 600px) {
+  .panel { padding: 18px; }
+  .brand span:last-child { display: none; }
+  .my-events select { max-width: 150px; }
+  .field-row { grid-template-columns: 1fr 1fr; }
+  .field-row .field:first-child { grid-column: 1 / -1; }
+  .guest-form { grid-template-columns: 1fr 1fr; }
+  .guest-form .btn { grid-column: 1 / -1; }
+  .invite-card { padding: 40px 22px; min-height: 500px; }
+  .cd-unit { min-width: 62px; }
+
+  /* טבלה -> כרטיסים */
+  .guest-table thead { display: none; }
+  .guest-table, .guest-table tbody, .guest-table tr, .guest-table td { display: block; width: 100%; }
+  .guest-table tr { border: 1px solid var(--border); border-radius: 12px; padding: 8px 12px; margin-bottom: 10px; }
+  .guest-table td { border: 0; padding: 4px 0; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .guest-table td::before { content: attr(data-label); color: var(--muted); font-size: .85rem; }
+  .guest-table td.row-actions::before { content: none; }
+  .guest-table tr.status-yes { border-right: 4px solid #2bb361; }
+  .guest-table tr.status-maybe { border-right: 4px solid #f0a500; }
+  .guest-table tr.status-no { border-right: 4px solid #d93a3a; }
+  .guest-table tr td:first-child { border-right: 0; font-weight: 700; }
+}

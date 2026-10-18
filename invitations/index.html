@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>הזמנה דיגיטלית | יוצרים הזמנה לאירוע בדקה</title>
+  <meta name="description" content="יוצרים הזמנה דיגיטלית מעוצבת לחתונה, בר/בת מצווה, ברית, יום הולדת ואירוע עסקי – שולחים בוואטסאפ ומקבלים אישורי הגעה.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body class="editor-page">
+
+  <header class="app-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-mark" aria-hidden="true">✉</span>
+        <span><strong>הזמנה</strong> דיגיטלית</span>
+      </a>
+      <div class="my-events">
+        <label for="event-select" class="sr-only">האירועים שלי</label>
+        <select id="event-select"></select>
+        <button type="button" class="btn btn-ghost" id="new-event">+ אירוע חדש</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="intro">
+      <h1>יוצרים הזמנה דיגיטלית לאירוע – בדקה</h1>
+      <p>ממלאים פרטים, בוחרים עיצוב, ושולחים לכל המוזמנים בוואטסאפ. האורחים מקבלים הזמנה מעוצבת עם ניווט, הוספה ליומן ואישור הגעה.</p>
+      <ol class="steps">
+        <li><span>1</span>פרטי האירוע</li>
+        <li><span>2</span>עיצוב</li>
+        <li><span>3</span>שליחה ומעקב</li>
+      </ol>
+    </section>
+
+    <div class="editor-layout">
+      <form id="invite-form" class="panel" autocomplete="off">
+        <h2 class="panel-title"><span class="num">1</span>פרטי האירוע</h2>
+
+        <fieldset class="field">
+          <legend>סוג האירוע</legend>
+          <div class="chips" id="type-chips"></div>
+        </fieldset>
+
+        <div class="field">
+          <label for="f-n">שמות בעלי השמחה *</label>
+          <input id="f-n" name="n" required placeholder="לדוגמה: נועה & איתי">
+        </div>
+
+        <div class="field">
+          <label for="f-s">שורת משנה <small>(לא חובה)</small></label>
+          <input id="f-s" name="s" placeholder="לדוגמה: בני משפחות כהן ולוי">
+        </div>
+
+        <div class="field">
+          <label for="f-h">משפט הפתיחה</label>
+          <textarea id="f-h" name="h" rows="2"></textarea>
+          <small class="hint">השאירו ריק כדי להשתמש בנוסח ברירת המחדל.</small>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="f-d">תאריך *</label>
+            <input id="f-d" name="d" type="date" required>
+          </div>
+          <div class="field">
+            <label for="f-tm">קבלת פנים</label>
+            <input id="f-tm" name="tm" type="time" value="19:30">
+          </div>
+          <div class="field">
+            <label for="f-ct" id="ct-label">חופה</label>
+            <input id="f-ct" name="ct" type="time">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="f-v">שם המקום</label>
+          <input id="f-v" name="v" placeholder="לדוגמה: אולמי הגן">
+        </div>
+
+        <div class="field">
+          <label for="f-a">כתובת <small>(לניווט בוויז ובגוגל מפות)</small></label>
+          <input id="f-a" name="a" placeholder="רחוב, מספר, עיר">
+        </div>
+
+        <div class="field">
+          <label for="f-m">מילים אישיות</label>
+          <textarea id="f-m" name="m" rows="2" placeholder="נשמח לחלוק איתכם את שמחתנו"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="f-f">חתימה</label>
+          <input id="f-f" name="f" placeholder="לדוגמה: ההורים המאושרים">
+        </div>
+
+        <div class="field">
+          <label for="f-p">טלפון לאישורי הגעה (וואטסאפ)</label>
+          <input id="f-p" name="p" type="tel" inputmode="tel" placeholder="05X-XXXXXXX">
+          <small class="hint">האורחים יאשרו הגעה בהודעת וואטסאפ למספר הזה.</small>
+        </div>
+
+        <h2 class="panel-title"><span class="num">2</span>עיצוב</h2>
+        <div class="themes" id="theme-picker" role="radiogroup" aria-label="עיצוב ההזמנה"></div>
+
+        <h2 class="panel-title"><span class="num">3</span>שליחה</h2>
+        <button type="submit" class="btn btn-primary btn-block">שמירה ויצירת קישור להזמנה</button>
+
+        <div class="share-box" id="share-box" hidden>
+          <label for="share-link">הקישור להזמנה:</label>
+          <div class="copy-row">
+            <input id="share-link" readonly dir="ltr">
+            <button type="button" class="btn btn-ghost" id="copy-link">העתקה</button>
+          </div>
+          <div class="share-actions">
+            <a class="btn btn-whatsapp" id="share-wa" target="_blank" rel="noopener">שליחה בוואטסאפ</a>
+            <a class="btn btn-ghost" id="open-invite" target="_blank" rel="noopener">צפייה כאורח</a>
+          </div>
+        </div>
+      </form>
+
+      <aside class="preview-wrap">
+        <div class="preview-sticky">
+          <p class="preview-label">תצוגה מקדימה</p>
+          <div class="phone-frame">
+            <div id="preview" class="invite-card"></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <section class="panel guests-panel" id="guests">
+      <div class="guests-head">
+        <h2 class="panel-title"><span class="num">✓</span>רשימת מוזמנים ואישורי הגעה</h2>
+        <div class="stats" id="stats"></div>
+      </div>
+      <p class="hint">כל מוזמן מקבל קישור אישי עם השם שלו. עדכנו כאן את הסטטוס לפי התשובות שמגיעות בוואטסאפ. הרשימה נשמרת בדפדפן הזה בלבד.</p>
+
+      <form id="guest-form" class="guest-form" autocomplete="off">
+        <input name="name" required placeholder="שם המוזמן/ים" aria-label="שם המוזמן">
+        <input name="phone" type="tel" inputmode="tel" placeholder="טלפון" aria-label="טלפון">
+        <button type="submit" class="btn btn-primary">הוספה</button>
+      </form>
+
+      <details class="bulk">
+        <summary>הוספת רשימה בבת אחת</summary>
+        <textarea id="bulk-input" rows="4" placeholder="שורה לכל מוזמן: שם, טלפון&#10;משפחת כהן, 0501234567&#10;דני לוי, 0529876543"></textarea>
+        <button type="button" class="btn btn-ghost" id="bulk-add">הוספת כולם</button>
+      </details>
+
+      <div class="table-wrap">
+        <table class="guest-table">
+          <thead>
+            <tr><th>שם</th><th>טלפון</th><th>סטטוס</th><th>מגיעים</th><th></th></tr>
+          </thead>
+          <tbody id="guest-rows"></tbody>
+        </table>
+        <p class="empty" id="guests-empty">עדיין אין מוזמנים ברשימה.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <div class="container">הזמנה דיגיטלית · ללא הרשמה, ללא עלות</div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="common.js"></script>
+  <script src="editor.js"></script>
+</body>
+</html>

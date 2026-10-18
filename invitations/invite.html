@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>הזמנה לאירוע</title>
+  <meta name="description" content="הוזמנתם לאירוע – פתחו את ההזמנה לפרטים ולאישור הגעה.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body class="guest-page">
+
+  <!-- מעטפה – נפתחת בלחיצה -->
+  <div class="envelope-screen" id="envelope">
+    <button type="button" class="envelope" id="open-envelope" aria-label="פתיחת ההזמנה">
+      <span class="env-flap" aria-hidden="true"></span>
+      <span class="env-seal" aria-hidden="true">✉</span>
+      <span class="env-to" id="env-to">הוזמנתם!</span>
+      <span class="env-hint">לחצו לפתיחת ההזמנה</span>
+    </button>
+  </div>
+
+  <main class="guest-main" id="guest-main" hidden>
+    <div id="card" class="invite-card"></div>
+
+    <section class="countdown" id="countdown" aria-label="ספירה לאחור"></section>
+
+    <section class="guest-actions">
+      <a class="action" id="nav-waze" target="_blank" rel="noopener"><span aria-hidden="true">🚗</span>ניווט בוויז</a>
+      <a class="action" id="nav-maps" target="_blank" rel="noopener"><span aria-hidden="true">📍</span>גוגל מפות</a>
+      <a class="action" id="cal-google" target="_blank" rel="noopener"><span aria-hidden="true">📅</span>גוגל יומן</a>
+      <button type="button" class="action" id="cal-ics"><span aria-hidden="true">🗓️</span>הוספה ליומן</button>
+    </section>
+
+    <section class="rsvp panel" id="rsvp">
+      <h2>אישור הגעה</h2>
+      <form id="rsvp-form">
+        <div class="field">
+          <label for="r-name">שם</label>
+          <input id="r-name" name="name" required>
+        </div>
+        <div class="rsvp-choice" role="radiogroup" aria-label="האם תגיעו?">
+          <label><input type="radio" name="answer" value="yes" checked><span>✔ מגיעים</span></label>
+          <label><input type="radio" name="answer" value="maybe"><span>🤔 עדיין לא בטוחים</span></label>
+          <label><input type="radio" name="answer" value="no"><span>✖ לא נוכל להגיע</span></label>
+        </div>
+        <div class="field" id="count-field">
+          <label for="r-count">כמה תגיעו?</label>
+          <div class="stepper">
+            <button type="button" data-step="-1" aria-label="פחות">−</button>
+            <input id="r-count" name="count" type="number" min="1" max="20" value="2">
+            <button type="button" data-step="1" aria-label="יותר">+</button>
+          </div>
+        </div>
+        <div class="field">
+          <label for="r-note">ברכה / הערה <small>(לא חובה)</small></label>
+          <textarea id="r-note" name="note" rows="2" placeholder="לדוגמה: מזל טוב! / מנה צמחונית"></textarea>
+        </div>
+        <button type="submit" class="btn btn-whatsapp btn-block">שליחת אישור בוואטסאפ</button>
+      </form>
+    </section>
+
+    <p class="made-with"><a href="index.html">רוצים הזמנה כזו לאירוע שלכם? צרו בחינם ←</a></p>
+  </main>
+
+  <main class="guest-main" id="invalid" hidden>
+    <div class="panel invalid">
+      <h1>ההזמנה לא נמצאה</h1>
+      <p>נראה שהקישור חסר או נקטע. בקשו מבעלי האירוע לשלוח אותו שוב.</p>
+      <a href="index.html" class="btn btn-primary">ליצירת הזמנה חדשה</a>
+    </div>
+  </main>
+
+  <script src="common.js"></script>
+  <script src="invite.js"></script>
+</body>
+</html>
