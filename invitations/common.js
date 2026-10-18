@@ -25,8 +25,50 @@ const THEMES = {
   ocean:   'ים כחול',
   boho:    'בוהו טרקוטה',
   marble:  'שיש לבן',
-  kids:    'בלונים לילדים'
+  kids:    'בלונים לילדים',
+  lavender: 'לבנדר',
+  artdeco: 'ארט דקו',
+  watercolor: 'צבעי מים',
+  jerusalem: 'אבן ירושלמית',
+  tropical: 'טרופי',
+  sky:     'שמיים ועננים',
+  corporate: 'עסקי כחול',
+  neon:    'ניאון'
 };
+
+// אפקטים מונפשים מעל ההזמנה
+const EFFECTS = {
+  none:     { label: 'ללא' },
+  petals:   { label: '🌸 עלי כותרת', items: ['🌸', '🌺', '🌸', '🏵️'], mode: 'fall' },
+  hearts:   { label: '💗 לבבות', items: ['💗', '💖', '🤍', '💕'], mode: 'rise' },
+  confetti: { label: '🎊 קונפטי', colors: ['#ff6fa8', '#ffd34d', '#4dd6ff', '#8fe36b', '#8a3ffc'], mode: 'fall' },
+  sparkles: { label: '✨ נצנצים', items: ['✨', '⭐', '✨'], mode: 'twinkle' },
+  balloons: { label: '🎈 בלונים', items: ['🎈', '🎈', '🎉'], mode: 'rise' },
+  snow:     { label: '❄️ פתיתים לבנים', colors: ['#ffffff'], mode: 'fall', round: true }
+};
+
+function startEffect(container, kind) {
+  container.querySelectorAll('.fx').forEach((el) => el.remove());
+  const fx = EFFECTS[kind];
+  if (!fx || !fx.mode || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const layer = document.createElement('div');
+  layer.className = `fx fx-${fx.mode}`;
+  layer.setAttribute('aria-hidden', 'true');
+  const count = fx.mode === 'twinkle' ? 12 : 14;
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement('span');
+    const r = (min, max) => (min + Math.random() * (max - min)).toFixed(2);
+    p.style.cssText = `left:${r(0, 96)}%;top:${fx.mode === 'twinkle' ? r(2, 94) + '%' : ''};animation-duration:${r(6, 12)}s;animation-delay:-${r(0, 12)}s;font-size:${r(12, 22)}px;--drift:${r(-40, 40)}px`;
+    if (fx.items) {
+      p.textContent = fx.items[i % fx.items.length];
+    } else {
+      p.className = fx.round ? 'dot round' : 'dot';
+      p.style.background = fx.colors[i % fx.colors.length];
+    }
+    layer.appendChild(p);
+  }
+  container.appendChild(layer);
+}
 
 const HE_DAYS = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
 const HE_MONTHS = ['ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר'];

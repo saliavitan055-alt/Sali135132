@@ -21,6 +21,8 @@ function initInvite() {
   renderCard(document.getElementById('card'), data, guestName);
 
   document.getElementById('open-envelope').addEventListener('click', () => {
+    startMusic();
+    startEffect(document.body, data.fx);
     const screen = document.getElementById('envelope');
     screen.classList.add('opening');
     document.getElementById('guest-main').hidden = false;
@@ -48,6 +50,30 @@ function initInvite() {
 
   startCountdown();
   initRsvp(type);
+}
+
+// המנגינה מתחילה בלחיצה על המעטפה – דפדפנים לא מאפשרים צליל לפני שהמשתמש לחץ על משהו
+function startMusic() {
+  const hasMusic = data.mu && (MUSIC[data.mu] || (data.mu === 'custom' && data.mx));
+  if (!hasMusic) return;
+  const player = new MusicPlayer();
+  const toggle = document.getElementById('sound-toggle');
+  const play = () => player.play(data.mu, data.mu === 'custom' ? data.mx : '');
+  const sync = () => {
+    toggle.textContent = player.playing ? '🔊' : '🔇';
+    toggle.setAttribute('aria-label', player.playing ? 'השתקת המנגינה' : 'הפעלת המנגינה');
+  };
+  play().then(sync);
+  toggle.hidden = false;
+  sync();
+  toggle.addEventListener('click', () => {
+    if (player.playing) { player.stop(); sync(); } else play().then(sync);
+    sync();
+  });
+  // עוצרים כשהאורח עובר לאפליקציה אחרת (למשל וויז או וואטסאפ)
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && player.playing) { player.stop(); sync(); }
+  });
 }
 
 function startCountdown() {

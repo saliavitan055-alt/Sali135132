@@ -58,6 +58,41 @@ Object.entries(THEMES).forEach(([key, name]) => {
   themePicker.appendChild(label);
 });
 
+const fxChips = document.getElementById('fx-chips');
+Object.entries(EFFECTS).forEach(([key, fx]) => {
+  const label = document.createElement('label');
+  label.className = 'chip';
+  label.innerHTML = `<input type="radio" name="fx" value="${key}"><span>${fx.label}</span>`;
+  fxChips.appendChild(label);
+});
+
+const musicSelect = form.elements.mu;
+musicSelect.add(new Option('ללא מנגינה', ''));
+Object.entries(MUSIC).forEach(([key, song]) => musicSelect.add(new Option(`♪ ${song.label}`, key)));
+musicSelect.add(new Option('🔗 שיר משלכם (קישור MP3)', 'custom'));
+
+// --- מנגינה בתצוגה המקדימה ---
+const player = new MusicPlayer();
+const musicBtn = document.getElementById('music-preview');
+
+function setMusicButton(playing) {
+  musicBtn.textContent = playing ? '■ עצירה' : '▶ השמעה';
+  musicBtn.setAttribute('aria-pressed', playing);
+}
+
+function playPreview() {
+  const id = musicSelect.value;
+  if (!id) { player.stop(); setMusicButton(false); return; }
+  const url = id === 'custom' ? form.elements.mx.value.trim() : '';
+  if (id === 'custom' && !url) { toast('הדביקו קישור לקובץ MP3'); return; }
+  player.play(id, url).then(() => setMusicButton(player.playing));
+  setMusicButton(true);
+}
+
+musicBtn.addEventListener('click', () => {
+  if (player.playing) { player.stop(); setMusicButton(false); } else playPreview();
+});
+
 // --- סנכרון טופס <-> נתונים ---
 function fillForm(data) {
   form.reset();
@@ -76,12 +111,15 @@ function readForm() {
 function syncTypeUi() {
   const type = EVENT_TYPES[form.elements.t.value] || EVENT_TYPES.other;
   form.elements.h.placeholder = type.headline;
+  document.getElementById('custom-music-field').hidden = musicSelect.value !== 'custom';
   document.getElementById('ct-label').textContent = form.elements.t.value === 'wedding' ? 'חופה' : 'תחילת הטקס';
 }
 
 function updatePreview() {
   // id – לזיהוי האירוע בגיליון; r – כתובת הגיליון שאליה האורחים שולחים אישור
   current.data = { ...readForm(), id: current.id };
+  if (current.data.fx === 'none') delete current.data.fx;
+  if (current.data.mu !== 'custom') delete current.data.mx;
   if (settings.url) current.data.r = settings.url;
   renderCard(preview, current.data);
 }
@@ -96,6 +134,11 @@ form.addEventListener('change', (e) => {
       form.elements.th.value = EVENT_TYPES[e.target.value].defaults.th;
     }
     form.dataset.prevType = e.target.value;
+  }
+  if (e.target.name === 'fx') startEffect(document.querySelector('.phone-frame'), e.target.value);
+  if (e.target.name === 'mu') {
+    syncTypeUi();
+    if (player.playing || e.target.value) playPreview();
   }
   updatePreview();
 });
@@ -183,7 +226,11 @@ document.getElementById('new-event').addEventListener('click', () => {
 });
 
 function loadCurrent() {
+  player.stop();
+  setMusicButton(false);
   fillForm(current.data);
+  if (!current.data.fx) form.elements.fx.value = 'none';
+  startEffect(document.querySelector('.phone-frame'), current.data.fx);
   form.dataset.prevType = current.data.t;
   document.getElementById('share-box').hidden = true;
   updatePreview();

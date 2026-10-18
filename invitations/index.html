@@ -106,6 +106,26 @@
         <h2 class="panel-title"><span class="num">2</span>עיצוב</h2>
         <div class="themes" id="theme-picker" role="radiogroup" aria-label="עיצוב ההזמנה"></div>
 
+        <fieldset class="field fx-field">
+          <legend>אפקט מונפש</legend>
+          <div class="chips" id="fx-chips"></div>
+        </fieldset>
+
+        <div class="field">
+          <label for="f-mu">מנגינת רקע</label>
+          <div class="music-row">
+            <select id="f-mu" name="mu"></select>
+            <button type="button" class="btn btn-ghost" id="music-preview" aria-pressed="false">▶ השמעה</button>
+          </div>
+          <small class="hint">המנגינה מתחילה כשהאורח פותח את המעטפה, ויש לו כפתור להשתקה.</small>
+        </div>
+
+        <div class="field" id="custom-music-field" hidden>
+          <label for="f-mx">קישור ישיר לקובץ שמע (MP3)</label>
+          <input id="f-mx" name="mx" type="url" dir="ltr" placeholder="https://.../song.mp3">
+          <small class="hint">הקישור צריך להוביל ישירות לקובץ (מסתיים ב-.mp3). השתמשו רק בשיר שמותר לכם להשמיע.</small>
+        </div>
+
         <h2 class="panel-title"><span class="num">3</span>שליחה</h2>
         <button type="submit" class="btn btn-primary btn-block">שמירה ויצירת קישור להזמנה</button>
 
@@ -237,6 +257,7 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="common.js"></script>
+  <script src="music.js"></script>
   <script src="editor.js"></script>
 </body>
 </html>
