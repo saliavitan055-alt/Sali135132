@@ -1,93 +1,95 @@
-// ===== הגדרות העסק – לשנות כאן בלבד =====
 const CONFIG = {
-  phoneDisplay: '054-4411991',
-  phoneTel: '0544411991',
-  whatsapp: '972544411991', // פורמט בינלאומי, בלי + ובלי 0 בהתחלה
-  whatsappGreeting: 'שלום קרש קאר, אני מעוניין למכור רכב אחרי תאונה. אשמח להצעת מחיר.'
+  whatsapp: "972544500344",
+  email: "akemor135@gmail.com",
 };
 
-const waUrl = (text) => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(text)}`;
+// Header shadow on scroll
+const header = document.querySelector(".site-header");
+const onScroll = () => header.classList.toggle("scrolled", window.scrollY > 10);
+window.addEventListener("scroll", onScroll, { passive: true });
+onScroll();
 
-// טלפון ווואטסאפ בכל הקישורים בעמוד
-document.querySelectorAll('[data-phone-link]').forEach((a) => { a.href = `tel:${CONFIG.phoneTel}`; });
-document.querySelectorAll('[data-phone-text]').forEach((el) => { el.textContent = CONFIG.phoneDisplay; });
-document.querySelectorAll('[data-whatsapp-link]').forEach((a) => { a.href = waUrl(CONFIG.whatsappGreeting); });
+// Mobile menu
+const toggle = document.getElementById("navToggle");
+const nav = document.getElementById("mainNav");
+toggle.addEventListener("click", () => {
+  const open = nav.classList.toggle("open");
+  toggle.setAttribute("aria-expanded", String(open));
+});
+nav.querySelectorAll("a").forEach((a) =>
+  a.addEventListener("click", () => {
+    nav.classList.remove("open");
+    toggle.setAttribute("aria-expanded", "false");
+  })
+);
 
-document.getElementById('year').textContent = new Date().getFullYear();
+// Active nav link
+const links = [...nav.querySelectorAll("a")];
+const sections = links.map((a) => document.querySelector(a.getAttribute("href")));
+const navObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      links.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
+    });
+  },
+  { rootMargin: "-45% 0px -50% 0px" }
+);
+sections.forEach((s) => s && navObserver.observe(s));
 
-// שנות ייצור
-const yearSelect = document.getElementById('year-select');
-const thisYear = new Date().getFullYear();
-for (let y = thisYear + 1; y >= 1990; y--) {
-  yearSelect.add(new Option(y, y));
+// Reveal on scroll
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add("visible");
+        revealObserver.unobserve(e.target);
+      }
+    });
+  },
+  { threshold: 0.12 }
+);
+document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+
+// Contact form → WhatsApp / email
+const form = document.getElementById("contactForm");
+const errorBox = document.getElementById("formError");
+
+function buildMessage() {
+  const f = form.elements;
+  const name = f.name.value.trim();
+  const phone = f.phone.value.trim();
+  [f.name, f.phone].forEach((el) => el.classList.remove("invalid"));
+  let error = "";
+  if (!name) { f.name.classList.add("invalid"); error = "נא למלא שם מלא"; }
+  if (!/^[0-9+\-\s]{9,}$/.test(phone)) { f.phone.classList.add("invalid"); error = error || "נא להזין מספר טלפון תקין"; }
+  errorBox.hidden = !error;
+  errorBox.textContent = error;
+  if (error) return null;
+
+  const lines = [
+    "פנייה חדשה מהאתר – א.ק אמור",
+    `שם: ${name}`,
+    `טלפון: ${phone}`,
+  ];
+  if (f.city.value.trim()) lines.push(`יישוב: ${f.city.value.trim()}`);
+  if (f.service.value) lines.push(`סוג העבודה: ${f.service.value}`);
+  if (f.message.value.trim()) lines.push(`פרטים: ${f.message.value.trim()}`);
+  return lines.join("\n");
 }
 
-// תפריט מובייל
-const menuToggle = document.getElementById('menu-toggle');
-const nav = document.getElementById('main-nav');
-menuToggle.addEventListener('click', () => {
-  const open = nav.classList.toggle('open');
-  menuToggle.setAttribute('aria-expanded', open);
-});
-nav.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => {
-  nav.classList.remove('open');
-  menuToggle.setAttribute('aria-expanded', 'false');
-}));
-
-// טופס הצעת מחיר -> הודעת וואטסאפ מוכנה
-const form = document.getElementById('offer-form');
-const errorBox = document.getElementById('form-error');
-
-form.addEventListener('submit', (e) => {
+form.addEventListener("submit", (e) => {
   e.preventDefault();
-  errorBox.hidden = true;
-  form.querySelectorAll('.invalid').forEach((el) => el.classList.remove('invalid'));
-
-  const missing = [...form.querySelectorAll('[required]')].filter((el) => !el.value.trim());
-  missing.forEach((el) => el.classList.add('invalid'));
-
-  const phone = form.phone.value.replace(/[^\d]/g, '');
-  const phoneOk = /^0\d{8,9}$/.test(phone) || /^972\d{8,9}$/.test(phone);
-  if (form.phone.value.trim() && !phoneOk) form.phone.classList.add('invalid');
-
-  if (missing.length || !phoneOk) {
-    errorBox.textContent = missing.length ? 'נא למלא את כל השדות' : 'מספר הטלפון אינו תקין';
-    errorBox.hidden = false;
-    (missing[0] || form.phone).focus();
-    return;
-  }
-
-  const d = Object.fromEntries(new FormData(form));
-  const message = [
-    '🚗 *בקשה להצעת מחיר – קרש קאר*',
-    `שם: ${d.name}`,
-    `טלפון: ${d.phone}`,
-    `יצרן ודגם: ${d.car}`,
-    `שנת ייצור: ${d.year}`,
-    '',
-    '(מצרף/ת תמונות של הרכב 👇)'
-  ].join('\n');
-
-  const url = waUrl(message);
-  document.getElementById('success-whatsapp').href = url;
-  window.open(url, '_blank', 'noopener');
-
-  form.hidden = true;
-  document.getElementById('form-success').hidden = false;
+  const msg = buildMessage();
+  if (!msg) return;
+  window.open(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`, "_blank", "noopener");
 });
 
-form.addEventListener('input', (e) => e.target.classList.remove('invalid'));
+document.getElementById("sendEmail").addEventListener("click", () => {
+  const msg = buildMessage();
+  if (!msg) return;
+  const subject = encodeURIComponent("פנייה מהאתר – הצעת מחיר");
+  window.location.href = `mailto:${CONFIG.email}?subject=${subject}&body=${encodeURIComponent(msg)}`;
+});
 
-// סימון הקישור הפעיל בתפריט לפי הגלילה
-const navLinks = [...nav.querySelectorAll('a')];
-const sections = navLinks
-  .map((a) => document.querySelector(a.getAttribute('href')))
-  .filter(Boolean);
-const setActive = () => {
-  const y = window.scrollY + 120;
-  let current = sections[0];
-  sections.forEach((sec) => { if (sec.offsetTop <= y) current = sec; });
-  navLinks.forEach((a) => a.classList.toggle('active', document.querySelector(a.getAttribute('href')) === current));
-};
-window.addEventListener('scroll', setActive, { passive: true });
-setActive();
+document.getElementById("year").textContent = new Date().getFullYear();
