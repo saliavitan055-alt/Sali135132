@@ -6,6 +6,10 @@ css = (here / 'styles.css').read_text(encoding='utf-8')
 js = (here / 'script.js').read_text(encoding='utf-8')
 html = html.replace('<link rel="stylesheet" href="styles.css">', '<style>\n' + css + '\n</style>')
 html = html.replace('<script src="script.js"></script>', '<script>\n' + js + '\n</script>')
+import base64
+for img in ['images/logo.png', 'images/icon.png']:
+    data = base64.b64encode((here / img).read_bytes()).decode()
+    html = html.replace(img, 'data:image/png;base64,' + data)
 assert 'styles.css' not in html and 'script.js' not in html
 (here / 'click-credit.html').write_text(html, encoding='utf-8')
 print('click-credit.html', len(html.encode()) // 1024, 'KB')
