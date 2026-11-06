@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>קל-אשראי | הלוואות עד 100,000 ₪</title>
+  <meta name="description" content="בקשה להלוואה עד 100,000 ₪ – בוחרים סכום, ממלאים פרטים ומקבלים תשובה מהירה.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a href="#" class="logo">קל<span>אשראי</span></a>
+    <nav class="nav">
+      <a href="#calc">מחשבון</a>
+      <a href="#how">איך זה עובד</a>
+      <a href="#faq">שאלות נפוצות</a>
+    </nav>
+    <a href="tel:0500000000" class="btn btn-small">התקשרו אלינו</a>
+  </div>
+</header>
+
+<section class="hero" id="calc">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <p class="badge" id="licenseBadge">בעל רישיון למתן אשראי מרשות שוק ההון · רישיון מס' <b>[להשלים]</b></p>
+      <h1>הלוואה עד <em>100,000 ₪</em><br>בלי לצאת מהבית</h1>
+      <p class="lead">בוחרים סכום ותקופה, ממלאים פרטים בשתי דקות ונציג חוזר אליכם עם הצעה מסודרת.</p>
+      <ul class="checks">
+        <li>תשובה עקרונית מהירה</li>
+        <li>החזר חודשי קבוע, בלי הפתעות</li>
+        <li>אפשר לפרוע מוקדם בכל שלב</li>
+      </ul>
+    </div>
+
+    <div class="card calc-card">
+      <h2>כמה כסף אתם צריכים?</h2>
+
+      <div class="amount-display"><span id="amountOut">30,000</span> ₪</div>
+      <input type="range" id="amount" min="5000" max="100000" step="1000" value="30000" aria-label="סכום ההלוואה">
+      <div class="range-labels"><span>5,000 ₪</span><span>100,000 ₪</span></div>
+
+      <label class="field-label" for="months">לכמה זמן? <b id="monthsOut">36</b> חודשים</label>
+      <input type="range" id="months" min="6" max="84" step="6" value="36" aria-label="תקופת ההלוואה בחודשים">
+      <div class="range-labels"><span>6 ח'</span><span>84 ח'</span></div>
+
+      <div class="summary">
+        <div><small>החזר חודשי משוער</small><strong id="monthlyOut">—</strong></div>
+        <div><small>סה"כ להחזר</small><strong id="totalOut">—</strong></div>
+      </div>
+      <p class="fine">חישוב להמחשה בלבד לפי ריבית שנתית של <span id="rateOut"></span>%. הריבית בפועל נקבעת לאחר בדיקת הבקשה.</p>
+
+      <button class="btn btn-block" id="startBtn">להגשת בקשה ←</button>
+    </div>
+  </div>
+</section>
+
+<section class="apply" id="apply" hidden>
+  <div class="wrap narrow">
+    <div class="card">
+      <div class="steps-bar">
+        <span class="step-dot active" data-step="1">1. פרטים אישיים</span>
+        <span class="step-dot" data-step="2">2. פרטים פיננסיים</span>
+        <span class="step-dot" data-step="3">3. אישור</span>
+      </div>
+
+      <p class="chosen">בקשה ל-<b id="chosenAmount"></b> ₪ ל-<b id="chosenMonths"></b> חודשים · <a href="#calc">שינוי</a></p>
+
+      <form id="loanForm" novalidate>
+        <!-- שלב 1 -->
+        <fieldset class="step" data-step="1">
+          <div class="row">
+            <div class="field"><label for="firstName">שם פרטי</label><input id="firstName" name="firstName" required autocomplete="given-name"></div>
+            <div class="field"><label for="lastName">שם משפחה</label><input id="lastName" name="lastName" required autocomplete="family-name"></div>
+          </div>
+          <div class="row">
+            <div class="field"><label for="idNumber">תעודת זהות (9 ספרות)</label><input id="idNumber" name="idNumber" inputmode="numeric" maxlength="9" required autocomplete="off"></div>
+            <div class="field"><label for="phone">טלפון נייד</label><input id="phone" name="phone" type="tel" inputmode="tel" required autocomplete="tel" placeholder="05X-XXXXXXX"></div>
+          </div>
+          <div class="field"><label for="email">אימייל</label><input id="email" name="email" type="email" required autocomplete="email"></div>
+          <div class="row">
+            <div class="field"><label for="city">עיר</label><input id="city" name="city" required autocomplete="address-level2"></div>
+            <div class="field"><label for="street">רחוב ומספר בית</label><input id="street" name="street" required autocomplete="street-address"></div>
+          </div>
+          <button type="button" class="btn btn-block next">המשך ←</button>
+        </fieldset>
+
+        <!-- שלב 2 -->
+        <fieldset class="step" data-step="2" hidden>
+          <div class="field">
+            <label for="bank">באיזה בנק החשבון שלכם?</label>
+            <select id="bank" name="bank" required>
+              <option value="">בחרו בנק</option>
+              <option>בנק הפועלים (12)</option>
+              <option>בנק לאומי (10)</option>
+              <option>בנק דיסקונט (11)</option>
+              <option>בנק מזרחי טפחות (20)</option>
+              <option>הבנק הבינלאומי (31)</option>
+              <option>בנק מרכנתיל (17)</option>
+              <option>בנק ירושלים (54)</option>
+              <option>בנק מסד (46)</option>
+              <option>בנק יהב (04)</option>
+              <option>בנק הדואר (09)</option>
+              <option>וואן זירו (18)</option>
+              <option>אחר</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="employment">מצב תעסוקתי</label>
+            <select id="employment" name="employment" required>
+              <option value="">בחרו</option>
+              <option>שכיר/ה</option>
+              <option>עצמאי/ת</option>
+              <option>פנסיונר/ית</option>
+              <option>אחר</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="income">הכנסה חודשית נטו (₪)</label>
+            <input id="income" name="income" inputmode="numeric" required>
+          </div>
+
+          <div class="field">
+            <span class="q">האם חזרו לכם צ'קים ב-3 השנים האחרונות?</span>
+            <div class="toggle">
+              <label><input type="radio" name="bouncedChecks" value="לא" required> לא</label>
+              <label><input type="radio" name="bouncedChecks" value="כן"> כן</label>
+            </div>
+          </div>
+          <div class="field" id="bouncedMore" hidden>
+            <label for="bouncedCount">בערך כמה צ'קים?</label>
+            <select id="bouncedCount" name="bouncedCount">
+              <option>1–2</option><option>3–9</option><option>10 ומעלה</option>
+            </select>
+          </div>
+          <div class="field">
+            <span class="q">האם החשבון מוגבל כיום?</span>
+            <div class="toggle">
+              <label><input type="radio" name="restricted" value="לא" required> לא</label>
+              <label><input type="radio" name="restricted" value="כן"> כן</label>
+            </div>
+          </div>
+
+          <div class="btn-row">
+            <button type="button" class="btn btn-ghost prev">→ חזרה</button>
+            <button type="button" class="btn next">המשך ←</button>
+          </div>
+        </fieldset>
+
+        <!-- שלב 3 -->
+        <fieldset class="step" data-step="3" hidden>
+          <h3>כמעט סיימנו</h3>
+          <div class="review" id="review"></div>
+          <label class="consent"><input type="checkbox" id="consent1" required> <span>אני מאשר/ת שהפרטים נכונים ומסכים/ה שתיבדק זכאותי, כולל פנייה למאגר נתוני האשראי של בנק ישראל בכפוף לחוק נתוני אשראי.</span></label>
+          <label class="consent"><input type="checkbox" id="consent2" required> <span>קראתי ואני מסכים/ה ל<a href="#" >תנאי השימוש</a> ול<a href="#">מדיניות הפרטיות</a>.</span></label>
+          <div class="btn-row">
+            <button type="button" class="btn btn-ghost prev">→ חזרה</button>
+            <button type="submit" class="btn">שליחת הבקשה</button>
+          </div>
+        </fieldset>
+
+        <p class="error" id="formError" role="alert"></p>
+      </form>
+
+      <div class="done" id="done" hidden>
+        <div class="done-icon">✓</div>
+        <h3>הבקשה התקבלה!</h3>
+        <p>נציג יחזור אליכם בהקדם עם הצעה. מספר פנייה: <b id="refNo"></b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="wrap">
+    <h2 class="section-title">איך זה עובד?</h2>
+    <div class="how-grid">
+      <div class="how-item"><span>1</span><h3>בוחרים סכום</h3><p>מזיזים את הסקאלה לסכום ולתקופה שמתאימים לכם.</p></div>
+      <div class="how-item"><span>2</span><h3>ממלאים פרטים</h3><p>טופס קצר – פרטים אישיים ופרטי חשבון הבנק.</p></div>
+      <div class="how-item"><span>3</span><h3>מקבלים הצעה</h3><p>נציג בודק את הבקשה וחוזר עם הצעה מסודרת וחוזה.</p></div>
+      <div class="how-item"><span>4</span><h3>הכסף בחשבון</h3><p>לאחר חתימה – הכסף מועבר ישירות לחשבון הבנק שלכם.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap narrow">
+    <h2 class="section-title">שאלות נפוצות</h2>
+    <details><summary>מה הסכום המקסימלי?</summary><p>ניתן לבקש הלוואה מ-5,000 ₪ ועד 100,000 ₪, לתקופה של 6 עד 84 חודשים.</p></details>
+    <details><summary>האם אפשר לקבל הלוואה אם חזרו לי צ'קים?</summary><p>כל בקשה נבדקת לגופה. היסטוריה של צ'קים חוזרים לא פוסלת אוטומטית, אבל משפיעה על תנאי ההלוואה.</p></details>
+    <details><summary>האם הגשת בקשה מחייבת אותי?</summary><p>לא. הגשת בקשה אינה מחייבת. ההלוואה נכנסת לתוקף רק לאחר חתימה על הסכם.</p></details>
+    <details><summary>אפשר לפרוע מוקדם?</summary><p>כן, בכל שלב, בהתאם להוראות החוק ולתנאי ההסכם.</p></details>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <p class="warning">אי עמידה בפירעון ההלוואה עלולה לגרור חיוב בריבית פיגורים והליכי הוצאה לפועל.</p>
+    <p>[שם החברה בע"מ] · ח.פ. [להשלים] · בעל רישיון למתן אשראי מרשות שוק ההון, ביטוח וחיסכון, רישיון מס' [להשלים] · [כתובת] · [טלפון]</p>
+    <p>מתן ההלוואה כפוף לבדיקת זכאות ולשיקול דעת החברה. הריבית ושיעור העלות בפועל ייקבעו לפי נתוני הלקוח ובכפוף לחוק הסדרת הלוואות חוץ בנקאיות.</p>
+    <p>© <span id="year"></span> כל הזכויות שמורות</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
