@@ -23,8 +23,8 @@ function updateCalc() {
   const n = +months.value;
   const r = CONFIG.annualRate / 100 / 12;
   const monthly = r === 0 ? P / n : (P * r) / (1 - Math.pow(1 + r, -n));
-  $('amountOut').textContent = fmt(P);
-  $('monthsOut').textContent = n;
+  $('amountOut').textContent = fmt(P) + ' ₪';
+  $('monthsOut').textContent = n + ' חודשים';
   $('monthlyOut').textContent = fmt(monthly) + ' ₪';
   $('totalOut').textContent = fmt(monthly * n) + ' ₪';
   paintRange(amount);
@@ -40,6 +40,25 @@ $('startBtn').addEventListener('click', () => {
   $('chosenMonths').textContent = months.value;
   $('apply').hidden = false;
   $('apply').scrollIntoView({ behavior: 'smooth' });
+});
+
+// ===== מסלולי מימון – ממלאים את המחשבון =====
+document.querySelectorAll('[data-amount]').forEach((a) =>
+  a.addEventListener('click', () => {
+    amount.value = a.dataset.amount;
+    months.value = a.dataset.months;
+    updateCalc();
+  })
+);
+
+// ===== תפריט נייד =====
+const nav = $('nav');
+$('menuBtn').addEventListener('click', () => {
+  const open = nav.classList.toggle('open');
+  $('menuBtn').setAttribute('aria-expanded', open);
+});
+nav.addEventListener('click', (e) => {
+  if (e.target.tagName === 'A') nav.classList.remove('open');
 });
 
 // ===== אימות =====

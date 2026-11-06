@@ -3,59 +3,88 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>קל-אשראי | הלוואות עד 100,000 ₪</title>
-  <meta name="description" content="בקשה להלוואה עד 100,000 ₪ – בוחרים סכום, ממלאים פרטים ומקבלים תשובה מהירה.">
+  <title>קליק קרדיט | ההלוואה שלך, במרחק קליק</title>
+  <meta name="description" content="קליק קרדיט – פתרונות אשראי ומימון מהיר בתהליך דיגיטלי מלא. בדיקת זכאות חינם וללא התחייבות.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <header class="topbar">
   <div class="wrap topbar-inner">
-    <a href="#" class="logo">קל<span>אשראי</span></a>
-    <nav class="nav">
-      <a href="#calc">מחשבון</a>
+    <a href="#" class="logo" aria-label="קליק קרדיט – דף הבית">
+      <svg class="logo-mark" viewBox="0 0 64 64" aria-hidden="true">
+        <defs>
+          <linearGradient id="lgTeal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14b8a6"/><stop offset="1" stop-color="#0f766e"/></linearGradient>
+          <linearGradient id="lgGold" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#b8862f"/><stop offset="1" stop-color="#f2c76b"/></linearGradient>
+        </defs>
+        <path d="M50 16 A24 24 0 1 0 54 44" fill="none" stroke="url(#lgTeal)" stroke-width="7" stroke-linecap="round"/>
+        <path d="M22 42 L44 20" stroke="url(#lgGold)" stroke-width="6" stroke-linecap="round"/>
+        <path d="M34 18 L47 17 L46 30" fill="none" stroke="url(#lgGold)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="55" cy="10" r="2.6" fill="#f2c76b"/><circle cx="60" cy="16" r="1.8" fill="#14b8a6"/>
+      </svg>
+      <span class="logo-text"><b>קליק קרדיט</b><small>ההלוואה שלך, במרחק קליק</small></span>
+    </a>
+    <nav class="nav" id="nav">
+      <a href="#" class="active">בית</a>
       <a href="#how">איך זה עובד</a>
-      <a href="#faq">שאלות נפוצות</a>
+      <a href="#tracks">מסלולי מימון</a>
+      <a href="#faq">שאלות ותשובות</a>
+      <a href="#contact">צור קשר</a>
     </nav>
-    <a href="tel:0500000000" class="btn btn-small">התקשרו אלינו</a>
+    <a href="#calc" class="btn btn-gold btn-nav">בדיקת זכאות מהירה</a>
+    <button class="menu-btn" id="menuBtn" aria-label="תפריט" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
 
-<section class="hero" id="calc">
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <svg class="wave" viewBox="0 0 1440 420" preserveAspectRatio="none">
+      <defs><linearGradient id="gw" x1="0" x2="1"><stop offset="0" stop-color="#c9973f"/><stop offset=".5" stop-color="#f0d08a"/><stop offset="1" stop-color="#c9973f"/></linearGradient></defs>
+      <path d="M0 40 C 260 10, 420 120, 640 150 C 900 190, 1150 300, 1440 220 L1440 420 L0 420 Z" fill="url(#gw)"/>
+      <path d="M0 80 C 260 50, 420 160, 640 190 C 900 230, 1150 330, 1440 250 L1440 420 L0 420 Z" fill="#0d2347"/>
+    </svg>
+    <i class="cube c1"></i><i class="cube c2"></i><i class="cube c3"></i><i class="cube c4"></i><i class="dot d1"></i><i class="dot d2"></i>
+  </div>
+
   <div class="wrap hero-grid">
     <div class="hero-text">
-      <p class="badge" id="licenseBadge">בעל רישיון למתן אשראי מרשות שוק ההון · רישיון מס' <b>[להשלים]</b></p>
-      <h1>הלוואה עד <em>100,000 ₪</em><br>בלי לצאת מהבית</h1>
-      <p class="lead">בוחרים סכום ותקופה, ממלאים פרטים בשתי דקות ונציג חוזר אליכם עם הצעה מסודרת.</p>
-      <ul class="checks">
-        <li>תשובה עקרונית מהירה</li>
-        <li>החזר חודשי קבוע, בלי הפתעות</li>
-        <li>אפשר לפרוע מוקדם בכל שלב</li>
+      <h1>קליק קרדיט -<span class="sub"><span class="gold">ההלוואה שלך,</span> <span class="teal">במרחק קליק</span></span></h1>
+      <p class="lead">פתרונות אשראי ומימון מהיר בתהליך דיגיטלי מלא, ללא בירוקרטיה ובדיסקרטיות מוחלטת</p>
+      <ul class="pills">
+        <li><span class="ico">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7"/><path d="M12 9v4l2.5 2M10 3h4M12 3v3"/></svg></span>אישור ראשוני תוך דקות</li>
+        <li><span class="ico">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M9.5 9l1.8 1.8L15 7.2M8.5 14l-1.5 7 5-2.5 5 2.5-1.5-7"/></svg></span>בדיקת זכאות חינם<br>ללא התחייבות</li>
+        <li><span class="ico">
+          <svg viewBox="0 0 24 24"><circle cx="13" cy="12" r="7"/><path d="M15 9.5c-.5-.8-1.3-1-2-1-1.2 0-2 .6-2 1.5 0 2.2 4.2 1 4.2 3.3 0 1-.9 1.7-2.2 1.7-.9 0-1.7-.4-2.2-1.1M13 7v1.5M13 15v1.5M2 9h3M1 12h3M2 15h3"/></svg></span>העברה מהירה ישירות לחשבון</li>
       </ul>
     </div>
 
-    <div class="card calc-card">
-      <h2>כמה כסף אתם צריכים?</h2>
+    <div class="calc-wrap" id="calc">
+      <div class="card calc-card">
+        <h2>מחשבון הלוואה מהירה</h2>
 
-      <div class="amount-display"><span id="amountOut">30,000</span> ₪</div>
-      <input type="range" id="amount" min="5000" max="100000" step="1000" value="30000" aria-label="סכום ההלוואה">
-      <div class="range-labels"><span>5,000 ₪</span><span>100,000 ₪</span></div>
+        <div class="slider-head"><label for="amount">סכום הלוואה</label><output id="amountOut">30,000 ₪</output></div>
+        <input type="range" id="amount" min="5000" max="200000" step="1000" value="30000" dir="ltr">
+        <div class="range-labels"><span>5,000 ₪</span><span>200,000 ₪</span></div>
 
-      <label class="field-label" for="months">לכמה זמן? <b id="monthsOut">36</b> חודשים</label>
-      <input type="range" id="months" min="6" max="84" step="6" value="36" aria-label="תקופת ההלוואה בחודשים">
-      <div class="range-labels"><span>6 ח'</span><span>84 ח'</span></div>
+        <div class="slider-head"><label for="months">תקופת החזר</label><output id="monthsOut">24 חודשים</output></div>
+        <input type="range" id="months" min="12" max="60" step="6" value="24" dir="ltr">
+        <div class="range-labels"><span>12 חודשים</span><span>60 חודשים</span></div>
 
-      <div class="summary">
-        <div><small>החזר חודשי משוער</small><strong id="monthlyOut">—</strong></div>
-        <div><small>סה"כ להחזר</small><strong id="totalOut">—</strong></div>
+        <div class="summary">
+          <p>החזר חודשי משוער: <strong id="monthlyOut">—</strong></p>
+          <p>סה"כ להחזר: <strong id="totalOut">—</strong></p>
+        </div>
+        <p class="fine">חישוב להמחשה בלבד לפי ריבית שנתית של <span id="rateOut"></span>%. הריבית בפועל נקבעת לאחר בדיקת הבקשה.</p>
+
+        <button class="btn btn-gold btn-block" id="startBtn">להגשת בקשה בקליק <span class="chev">‹</span></button>
       </div>
-      <p class="fine">חישוב להמחשה בלבד לפי ריבית שנתית של <span id="rateOut"></span>%. הריבית בפועל נקבעת לאחר בדיקת הבקשה.</p>
-
-      <button class="btn btn-block" id="startBtn">להגשת בקשה ←</button>
     </div>
   </div>
+  <p class="wrap hero-warning">*אי-עמידה בפירעון ההלוואה עלולה לגרור חיוב בריבית פיגורים והליכי הוצאה לפועל.</p>
 </section>
 
 <section class="apply" id="apply" hidden>
@@ -186,20 +215,38 @@
   </div>
 </section>
 
+<section class="tracks" id="tracks">
+  <div class="wrap">
+    <h2 class="section-title">מסלולי מימון</h2>
+    <div class="tracks-grid">
+      <div class="track"><h3>הלוואה לכל מטרה</h3><p class="range">5,000 – 50,000 ₪</p><p>לשיפוץ, לרכב, לאירוע או לכל צורך אחר. החזר עד 36 חודשים.</p><a href="#calc" class="btn btn-ghost" data-amount="30000" data-months="24">לבדיקת זכאות</a></div>
+      <div class="track featured"><h3>איחוד הלוואות</h3><p class="range">20,000 – 200,000 ₪</p><p>מאחדים כמה הלוואות לתשלום חודשי אחד ונוח. החזר עד 60 חודשים.</p><a href="#calc" class="btn btn-gold" data-amount="100000" data-months="60">לבדיקת זכאות</a></div>
+      <div class="track"><h3>מימון לעסקים</h3><p class="range">10,000 – 200,000 ₪</p><p>הון חוזר, ציוד או מלאי לעסקים קטנים ועצמאים.</p><a href="#calc" class="btn btn-ghost" data-amount="80000" data-months="36">לבדיקת זכאות</a></div>
+    </div>
+  </div>
+</section>
+
 <section class="faq" id="faq">
   <div class="wrap narrow">
-    <h2 class="section-title">שאלות נפוצות</h2>
-    <details><summary>מה הסכום המקסימלי?</summary><p>ניתן לבקש הלוואה מ-5,000 ₪ ועד 100,000 ₪, לתקופה של 6 עד 84 חודשים.</p></details>
+    <h2 class="section-title">שאלות ותשובות</h2>
+    <details><summary>מה הסכום המקסימלי?</summary><p>ניתן לבקש הלוואה מ-5,000 ₪ ועד 200,000 ₪, לתקופה של 12 עד 60 חודשים.</p></details>
     <details><summary>האם אפשר לקבל הלוואה אם חזרו לי צ'קים?</summary><p>כל בקשה נבדקת לגופה. היסטוריה של צ'קים חוזרים לא פוסלת אוטומטית, אבל משפיעה על תנאי ההלוואה.</p></details>
     <details><summary>האם הגשת בקשה מחייבת אותי?</summary><p>לא. הגשת בקשה אינה מחייבת. ההלוואה נכנסת לתוקף רק לאחר חתימה על הסכם.</p></details>
     <details><summary>אפשר לפרוע מוקדם?</summary><p>כן, בכל שלב, בהתאם להוראות החוק ולתנאי ההסכם.</p></details>
   </div>
 </section>
 
+<section class="contact" id="contact">
+  <div class="wrap contact-inner">
+    <div><h2>יש שאלה? נשמח לעזור</h2><p>הנציגים שלנו זמינים בימים א'–ה', 9:00–18:00</p></div>
+    <div class="contact-btns"><a href="tel:0500000000" class="btn btn-gold">התקשרו אלינו</a><a href="https://wa.me/972500000000" class="btn btn-outline-light" target="_blank" rel="noopener">וואטסאפ</a></div>
+  </div>
+</section>
+
 <footer class="footer">
   <div class="wrap">
     <p class="warning">אי עמידה בפירעון ההלוואה עלולה לגרור חיוב בריבית פיגורים והליכי הוצאה לפועל.</p>
-    <p>[שם החברה בע"מ] · ח.פ. [להשלים] · בעל רישיון למתן אשראי מרשות שוק ההון, ביטוח וחיסכון, רישיון מס' [להשלים] · [כתובת] · [טלפון]</p>
+    <p>קליק קרדיט – [שם החברה בע"מ] · ח.פ. [להשלים] · בעל רישיון למתן אשראי מרשות שוק ההון, ביטוח וחיסכון, רישיון מס' [להשלים] · [כתובת] · [טלפון]</p>
     <p>מתן ההלוואה כפוף לבדיקת זכאות ולשיקול דעת החברה. הריבית ושיעור העלות בפועל ייקבעו לפי נתוני הלקוח ובכפוף לחוק הסדרת הלוואות חוץ בנקאיות.</p>
     <p>© <span id="year"></span> כל הזכויות שמורות</p>
   </div>
