@@ -13,7 +13,7 @@
 
 <header class="topbar">
   <div class="wrap topbar-inner">
-    <a href="#" class="logo" aria-label="קליק קרדיט – דף הבית">
+    <a href="#top" class="logo" aria-label="קליק קרדיט – דף הבית">
       <svg class="logo-mark" viewBox="0 0 64 64" aria-hidden="true">
         <defs>
           <linearGradient id="lgTeal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14b8a6"/><stop offset="1" stop-color="#0f766e"/></linearGradient>
@@ -27,7 +27,7 @@
       <span class="logo-text"><b>קליק קרדיט</b><small>ההלוואה שלך, במרחק קליק</small></span>
     </a>
     <nav class="nav" id="nav">
-      <a href="#" class="active">בית</a>
+      <a href="#top" class="active">בית</a>
       <a href="#how">איך זה עובד</a>
       <a href="#tracks">מסלולי מימון</a>
       <a href="#faq">שאלות ותשובות</a>
@@ -38,7 +38,7 @@
   </div>
 </header>
 
-<section class="hero">
+<section class="hero" id="top">
   <div class="hero-bg" aria-hidden="true">
     <svg class="wave" viewBox="0 0 1440 420" preserveAspectRatio="none">
       <defs><linearGradient id="gw" x1="0" x2="1"><stop offset="0" stop-color="#c9973f"/><stop offset=".5" stop-color="#f0d08a"/><stop offset="1" stop-color="#c9973f"/></linearGradient></defs>
@@ -106,7 +106,7 @@
             <div class="field"><label for="lastName">שם משפחה</label><input id="lastName" name="lastName" required autocomplete="family-name"></div>
           </div>
           <div class="row">
-            <div class="field"><label for="idNumber">תעודת זהות (9 ספרות)</label><input id="idNumber" name="idNumber" inputmode="numeric" maxlength="9" required autocomplete="off"></div>
+            <div class="field"><label for="idNumber">תעודת זהות (9 ספרות)</label><input id="idNumber" name="idNumber" inputmode="numeric" maxlength="9" placeholder="כולל ספרת ביקורת" required autocomplete="off"></div>
             <div class="field"><label for="phone">טלפון נייד</label><input id="phone" name="phone" type="tel" inputmode="tel" required autocomplete="tel" placeholder="05X-XXXXXXX"></div>
           </div>
           <div class="field"><label for="email">אימייל</label><input id="email" name="email" type="email" required autocomplete="email"></div>
@@ -149,7 +149,7 @@
           </div>
           <div class="field">
             <label for="income">הכנסה חודשית נטו (₪)</label>
-            <input id="income" name="income" inputmode="numeric" required>
+            <input id="income" name="income" inputmode="numeric" required placeholder="לדוגמה 9,000">
           </div>
 
           <div class="field">
@@ -184,7 +184,7 @@
           <h3>כמעט סיימנו</h3>
           <div class="review" id="review"></div>
           <label class="consent"><input type="checkbox" id="consent1" required> <span>אני מאשר/ת שהפרטים נכונים ומסכים/ה שתיבדק זכאותי, כולל פנייה למאגר נתוני האשראי של בנק ישראל בכפוף לחוק נתוני אשראי.</span></label>
-          <label class="consent"><input type="checkbox" id="consent2" required> <span>קראתי ואני מסכים/ה ל<a href="#" >תנאי השימוש</a> ול<a href="#">מדיניות הפרטיות</a>.</span></label>
+          <label class="consent"><input type="checkbox" id="consent2" required> <span>קראתי ואני מסכים/ה ל<a href="#" data-modal="termsModal">תנאי השימוש</a> ול<a href="#" data-modal="privacyModal">מדיניות הפרטיות</a>.</span></label>
           <div class="btn-row">
             <button type="button" class="btn btn-ghost prev">→ חזרה</button>
             <button type="submit" class="btn">שליחת הבקשה</button>
@@ -207,10 +207,10 @@
   <div class="wrap">
     <h2 class="section-title">איך זה עובד?</h2>
     <div class="how-grid">
-      <div class="how-item"><span>1</span><h3>בוחרים סכום</h3><p>מזיזים את הסקאלה לסכום ולתקופה שמתאימים לכם.</p></div>
-      <div class="how-item"><span>2</span><h3>ממלאים פרטים</h3><p>טופס קצר – פרטים אישיים ופרטי חשבון הבנק.</p></div>
-      <div class="how-item"><span>3</span><h3>מקבלים הצעה</h3><p>נציג בודק את הבקשה וחוזר עם הצעה מסודרת וחוזה.</p></div>
-      <div class="how-item"><span>4</span><h3>הכסף בחשבון</h3><p>לאחר חתימה – הכסף מועבר ישירות לחשבון הבנק שלכם.</p></div>
+      <div class="how-item reveal"><span>1</span><h3>בוחרים סכום</h3><p>מזיזים את הסקאלה לסכום ולתקופה שמתאימים לכם.</p></div>
+      <div class="how-item reveal"><span>2</span><h3>ממלאים פרטים</h3><p>טופס קצר – פרטים אישיים ופרטי חשבון הבנק.</p></div>
+      <div class="how-item reveal"><span>3</span><h3>מקבלים הצעה</h3><p>נציג בודק את הבקשה וחוזר עם הצעה מסודרת וחוזה.</p></div>
+      <div class="how-item reveal"><span>4</span><h3>הכסף בחשבון</h3><p>לאחר חתימה – הכסף מועבר ישירות לחשבון הבנק שלכם.</p></div>
     </div>
   </div>
 </section>
@@ -219,9 +219,9 @@
   <div class="wrap">
     <h2 class="section-title">מסלולי מימון</h2>
     <div class="tracks-grid">
-      <div class="track"><h3>הלוואה לכל מטרה</h3><p class="range">5,000 – 50,000 ₪</p><p>לשיפוץ, לרכב, לאירוע או לכל צורך אחר. החזר עד 36 חודשים.</p><a href="#calc" class="btn btn-ghost" data-amount="30000" data-months="24">לבדיקת זכאות</a></div>
-      <div class="track featured"><h3>איחוד הלוואות</h3><p class="range">20,000 – 200,000 ₪</p><p>מאחדים כמה הלוואות לתשלום חודשי אחד ונוח. החזר עד 60 חודשים.</p><a href="#calc" class="btn btn-gold" data-amount="100000" data-months="60">לבדיקת זכאות</a></div>
-      <div class="track"><h3>מימון לעסקים</h3><p class="range">10,000 – 200,000 ₪</p><p>הון חוזר, ציוד או מלאי לעסקים קטנים ועצמאים.</p><a href="#calc" class="btn btn-ghost" data-amount="80000" data-months="36">לבדיקת זכאות</a></div>
+      <div class="track reveal"><h3>הלוואה לכל מטרה</h3><p class="range">5,000 – 50,000 ₪</p><p>לשיפוץ, לרכב, לאירוע או לכל צורך אחר. החזר עד 36 חודשים.</p><a href="#calc" class="btn btn-ghost" data-amount="30000" data-months="24">לבדיקת זכאות</a></div>
+      <div class="track featured reveal"><h3>איחוד הלוואות</h3><p class="range">20,000 – 200,000 ₪</p><p>מאחדים כמה הלוואות לתשלום חודשי אחד ונוח. החזר עד 60 חודשים.</p><a href="#calc" class="btn btn-gold" data-amount="100000" data-months="60">לבדיקת זכאות</a></div>
+      <div class="track reveal"><h3>מימון לעסקים</h3><p class="range">10,000 – 200,000 ₪</p><p>הון חוזר, ציוד או מלאי לעסקים קטנים ועצמאים.</p><a href="#calc" class="btn btn-ghost" data-amount="80000" data-months="36">לבדיקת זכאות</a></div>
     </div>
   </div>
 </section>
@@ -229,10 +229,10 @@
 <section class="faq" id="faq">
   <div class="wrap narrow">
     <h2 class="section-title">שאלות ותשובות</h2>
-    <details><summary>מה הסכום המקסימלי?</summary><p>ניתן לבקש הלוואה מ-5,000 ₪ ועד 200,000 ₪, לתקופה של 12 עד 60 חודשים.</p></details>
-    <details><summary>האם אפשר לקבל הלוואה אם חזרו לי צ'קים?</summary><p>כל בקשה נבדקת לגופה. היסטוריה של צ'קים חוזרים לא פוסלת אוטומטית, אבל משפיעה על תנאי ההלוואה.</p></details>
-    <details><summary>האם הגשת בקשה מחייבת אותי?</summary><p>לא. הגשת בקשה אינה מחייבת. ההלוואה נכנסת לתוקף רק לאחר חתימה על הסכם.</p></details>
-    <details><summary>אפשר לפרוע מוקדם?</summary><p>כן, בכל שלב, בהתאם להוראות החוק ולתנאי ההסכם.</p></details>
+    <details class="reveal"><summary>מה הסכום המקסימלי?</summary><p>ניתן לבקש הלוואה מ-5,000 ₪ ועד 200,000 ₪, לתקופה של 12 עד 60 חודשים.</p></details>
+    <details class="reveal"><summary>האם אפשר לקבל הלוואה אם חזרו לי צ'קים?</summary><p>כל בקשה נבדקת לגופה. היסטוריה של צ'קים חוזרים לא פוסלת אוטומטית, אבל משפיעה על תנאי ההלוואה.</p></details>
+    <details class="reveal"><summary>האם הגשת בקשה מחייבת אותי?</summary><p>לא. הגשת בקשה אינה מחייבת. ההלוואה נכנסת לתוקף רק לאחר חתימה על הסכם.</p></details>
+    <details class="reveal"><summary>אפשר לפרוע מוקדם?</summary><p>כן, בכל שלב, בהתאם להוראות החוק ולתנאי ההסכם.</p></details>
   </div>
 </section>
 
@@ -248,9 +248,29 @@
     <p class="warning">אי עמידה בפירעון ההלוואה עלולה לגרור חיוב בריבית פיגורים והליכי הוצאה לפועל.</p>
     <p>קליק קרדיט – [שם החברה בע"מ] · ח.פ. [להשלים] · בעל רישיון למתן אשראי מרשות שוק ההון, ביטוח וחיסכון, רישיון מס' [להשלים] · [כתובת] · [טלפון]</p>
     <p>מתן ההלוואה כפוף לבדיקת זכאות ולשיקול דעת החברה. הריבית ושיעור העלות בפועל ייקבעו לפי נתוני הלקוח ובכפוף לחוק הסדרת הלוואות חוץ בנקאיות.</p>
-    <p>© <span id="year"></span> כל הזכויות שמורות</p>
+    <p class="footer-links"><a href="#" data-modal="termsModal">תנאי שימוש</a> · <a href="#" data-modal="privacyModal">מדיניות פרטיות</a> · <a href="#contact">צור קשר</a></p>
+    <p>© <span id="year"></span> קליק קרדיט · כל הזכויות שמורות</p>
   </div>
 </footer>
+
+<dialog id="termsModal" class="modal">
+  <button class="modal-close" aria-label="סגירה">×</button>
+  <h3>תנאי שימוש</h3>
+  <p><b>[טיוטה – יש להחליף בנוסח שנכתב על ידי עורך דין]</b></p>
+  <p>השימוש באתר כפוף לתנאים אלה. הגשת בקשה באתר אינה מהווה התחייבות של החברה להעמיד הלוואה ואינה מחייבת את הלקוח. ההלוואה תינתן רק לאחר בדיקת זכאות וחתימה על הסכם הלוואה.</p>
+  <p>הנתונים במחשבון הם להמחשה בלבד. הריבית ושיעור העלות בפועל ייקבעו לפי נתוני הלקוח, בכפוף לחוק הסדרת הלוואות חוץ בנקאיות.</p>
+</dialog>
+<dialog id="privacyModal" class="modal">
+  <button class="modal-close" aria-label="סגירה">×</button>
+  <h3>מדיניות פרטיות</h3>
+  <p><b>[טיוטה – יש להחליף בנוסח שנכתב על ידי עורך דין]</b></p>
+  <p>הפרטים שנמסרים בטופס (כולל מספר תעודת זהות ופרטי חשבון) ישמשו לבדיקת הבקשה וליצירת קשר בלבד, יישמרו במאגר מאובטח בהתאם לחוק הגנת הפרטיות, ולא יועברו לצד שלישי ללא הסכמה, למעט כנדרש בדין.</p>
+  <p>ניתן לבקש לעיין במידע או למחוק אותו בפנייה אלינו.</p>
+</dialog>
+
+<a href="https://wa.me/972500000000" class="wa-float" target="_blank" rel="noopener" aria-label="וואטסאפ">
+  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.8-1.2s.2-1.1.1-1.2l-.4-.2z"/></svg>
+</a>
 
 <script src="script.js"></script>
 </body>

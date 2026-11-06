@@ -27,6 +27,8 @@ function updateCalc() {
   $('monthsOut').textContent = n + ' חודשים';
   $('monthlyOut').textContent = fmt(monthly) + ' ₪';
   $('totalOut').textContent = fmt(monthly * n) + ' ₪';
+  $('chosenAmount').textContent = fmt(P);
+  $('chosenMonths').textContent = n;
   paintRange(amount);
   paintRange(months);
 }
@@ -36,8 +38,6 @@ updateCalc();
 
 // ===== מעבר לטופס =====
 $('startBtn').addEventListener('click', () => {
-  $('chosenAmount').textContent = fmt(+amount.value);
-  $('chosenMonths').textContent = months.value;
   $('apply').hidden = false;
   $('apply').scrollIntoView({ behavior: 'smooth' });
 });
@@ -60,6 +60,21 @@ $('menuBtn').addEventListener('click', () => {
 nav.addEventListener('click', (e) => {
   if (e.target.tagName === 'A') nav.classList.remove('open');
 });
+
+// ===== ניקוי קלט =====
+$('idNumber').addEventListener('input', (e) => (e.target.value = e.target.value.replace(/\D/g, '').slice(0, 9)));
+$('income').addEventListener('input', (e) => {
+  const digits = e.target.value.replace(/\D/g, '').slice(0, 7);
+  e.target.value = digits ? (+digits).toLocaleString('en-US') : '';
+});
+$('phone').addEventListener('input', (e) => (e.target.value = e.target.value.replace(/[^\d-\s]/g, '')));
+// הסרת סימון שגיאה ברגע שמתקנים
+document.querySelectorAll('#loanForm input, #loanForm select').forEach((el) =>
+  el.addEventListener('input', () => {
+    el.classList.remove('invalid');
+    el.closest('.toggle')?.classList.remove('invalid');
+  })
+);
 
 // ===== אימות =====
 // בדיקת ספרת ביקורת של ת"ז ישראלית
@@ -108,6 +123,7 @@ function validateStep(step) {
     if (res !== true && !firstError) firstError = res;
   });
   errorEl.textContent = firstError;
+  if (firstError) fs.querySelector('.invalid input, input.invalid, select.invalid')?.focus();
   return !firstError;
 }
 
@@ -123,6 +139,9 @@ function showStep(n) {
   });
   errorEl.textContent = '';
   if (n === 3) buildReview();
+  $('apply').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const first = form.querySelector(`.step[data-step="${n}"] input, .step[data-step="${n}"] select`);
+  if (first && window.matchMedia('(pointer: fine)').matches) first.focus({ preventScroll: true });
 }
 form.addEventListener('click', (e) => {
   if (e.target.classList.contains('next') && validateStep(current)) showStep(current + 1);
@@ -136,6 +155,7 @@ form.querySelectorAll('input[name="bouncedChecks"]').forEach((r) =>
 function getData() {
   const d = Object.fromEntries(new FormData(form));
   if (d.bouncedChecks !== 'כן') delete d.bouncedCount;
+  if (d.income) d.income = d.income.replace(/\D/g, '');
   d.amount = +amount.value;
   d.months = +months.value;
   return d;
@@ -152,6 +172,7 @@ function buildReview() {
     ['טלפון', d.phone],
     ['כתובת', d.street + ', ' + d.city],
     ['בנק', d.bank],
+    ['הכנסה חודשית', fmt(+d.income) + ' ₪'],
     ["צ'קים חוזרים (3 שנים)", d.bouncedChecks + (d.bouncedCount ? ` (${d.bouncedCount})` : '')],
     ['חשבון מוגבל', d.restricted],
   ];
@@ -172,6 +193,10 @@ function buildReview() {
 // ===== שליחה =====
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
+  if (current !== 3) {
+    if (validateStep(current)) showStep(current + 1);
+    return;
+  }
   if (!validateStep(3)) return;
   const btn = form.querySelector('button[type=submit]');
   btn.disabled = true;
@@ -192,11 +217,49 @@ form.addEventListener('submit', async (e) => {
     document.querySelector('.chosen').hidden = true;
     $('refNo').textContent = Date.now().toString().slice(-7);
     $('done').hidden = false;
+    $('apply').scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch {
     errorEl.textContent = 'אירעה שגיאה בשליחה. נסו שוב או התקשרו אלינו.';
     btn.disabled = false;
     btn.textContent = 'שליחת הבקשה';
   }
 });
+
+// ===== תפריט פעיל לפי גלילה =====
+const navLinks = [...nav.querySelectorAll('a')];
+const spy = new IntersectionObserver(
+  (entries) => entries.forEach((en) => {
+    if (!en.isIntersecting) return;
+    navLinks.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id));
+  }),
+  { rootMargin: '-45% 0px -50% 0px' }
+);
+['top', 'how', 'tracks', 'faq', 'contact'].forEach((id) => $(id) && spy.observe($(id)));
+
+// ===== הצל בכותרת בזמן גלילה =====
+const topbar = document.querySelector('.topbar');
+addEventListener('scroll', () => topbar.classList.toggle('scrolled', scrollY > 10), { passive: true });
+
+// ===== אנימציית כניסה =====
+const reveal = new IntersectionObserver(
+  (entries) => entries.forEach((en) => {
+    if (en.isIntersecting) { en.target.classList.add('in'); reveal.unobserve(en.target); }
+  }),
+  { threshold: 0.15 }
+);
+document.querySelectorAll('.reveal').forEach((el) => reveal.observe(el));
+
+// ===== חלונות תנאי שימוש / פרטיות =====
+document.querySelectorAll('[data-modal]').forEach((a) =>
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    $(a.dataset.modal).showModal();
+  })
+);
+document.querySelectorAll('dialog').forEach((d) =>
+  d.addEventListener('click', (e) => {
+    if (e.target === d || e.target.classList.contains('modal-close')) d.close();
+  })
+);
 
 $('year').textContent = new Date().getFullYear();

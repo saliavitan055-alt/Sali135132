@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>קליק קרדיט | ההלוואה שלך, במרחק קליק</title>
+  <meta name="description" content="קליק קרדיט – פתרונות אשראי ומימון מהיר בתהליך דיגיטלי מלא. בדיקת זכאות חינם וללא התחייבות.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --navy: #0d2347;
+  --navy-2: #1b3563;
+  --gold: #c9973f;
+  --gold-2: #e9c477;
+  --gold-3: #f6dfa6;
+  --teal: #12a594;
+  --ink: #0d2347;
+  --muted: #5a6478;
+  --cream: #f7f4ee;
+  --card: #fffdf9;
+  --line: #e8e1d3;
+  --error: #c0392b;
+  --radius: 22px;
+  --gold-grad: linear-gradient(180deg, #e9c477 0%, #c9973f 55%, #b5832e 100%);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: "Heebo", Arial, sans-serif; color: var(--ink); background: var(--cream); line-height: 1.6; overflow-x: hidden; }
+a { color: var(--navy); }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+.narrow { max-width: 760px; }
+[hidden] { display: none !important; }
+
+/* ===== buttons ===== */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: 0; cursor: pointer; font: inherit; font-weight: 700;
+  padding: 14px 30px; border-radius: 999px; text-decoration: none; transition: transform .15s, box-shadow .2s, filter .2s; background: var(--navy); color: #fff; }
+.btn:active { transform: scale(.98); }
+.btn-gold { background: var(--gold-grad); color: #fff; text-shadow: 0 1px 1px rgba(90,60,10,.35);
+  box-shadow: 0 8px 22px rgba(201,151,63,.35), inset 0 1px 0 rgba(255,255,255,.45); border: 1px solid #d9ad5a; }
+.btn-gold:hover { filter: brightness(1.06); box-shadow: 0 10px 28px rgba(201,151,63,.45), inset 0 1px 0 rgba(255,255,255,.45); }
+.btn-ghost { background: transparent; color: var(--navy); border: 2px solid var(--gold); }
+.btn-ghost:hover { background: #fbf3e2; }
+.btn-outline-light { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.6); }
+.btn-outline-light:hover { background: rgba(255,255,255,.1); }
+.btn-block { width: 100%; font-size: 22px; padding: 16px; }
+.chev { font-size: 30px; line-height: 0; margin-top: -4px; }
+.btn-row { display: flex; justify-content: space-between; gap: 12px; margin-top: 8px; }
+
+/* ===== top bar ===== */
+.topbar { background: rgba(247,244,238,.92); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 20; }
+.topbar-inner { display: flex; align-items: center; gap: 28px; height: 96px; }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+.logo-mark { width: 60px; height: 60px; }
+.logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+.logo-text b { font-size: 30px; font-weight: 900; color: var(--navy); letter-spacing: -.5px; }
+.logo-text small { font-size: 14px; color: var(--navy-2); }
+.nav { display: flex; gap: 36px; margin-inline-start: auto; }
+.nav a { text-decoration: none; color: var(--navy); font-size: 19px; font-weight: 500; position: relative; padding: 6px 0; }
+.nav a.active { color: var(--gold); }
+.nav a.active::after, .nav a:hover::after { content: ""; position: absolute; right: 0; left: 0; bottom: -2px; height: 3px; border-radius: 3px; background: var(--gold-2); }
+.btn-nav { font-size: 19px; padding: 14px 30px; }
+.menu-btn { display: none; background: none; border: 0; padding: 8px; cursor: pointer; margin-inline-start: auto; }
+.menu-btn span { display: block; width: 26px; height: 3px; background: var(--navy); border-radius: 2px; margin: 5px 0; }
+
+/* ===== hero ===== */
+.hero { position: relative; padding: 40px 0 0; overflow: hidden; background:
+  radial-gradient(1200px 500px at 30% 20%, #fff 0%, rgba(255,255,255,0) 60%), var(--cream); }
+.hero-bg { position: absolute; inset: 0; pointer-events: none; }
+.wave { position: absolute; bottom: 0; right: 0; width: 100%; height: 62%; }
+.cube { position: absolute; border-radius: 14px; background: linear-gradient(145deg, #fff, #ddd6c8); box-shadow: 0 10px 24px rgba(13,35,71,.12); transform: rotate(12deg); }
+.c1 { width: 120px; height: 120px; top: 16%; left: 40%; opacity: .7; }
+.c2 { width: 40px; height: 40px; top: 46%; left: 4%; opacity: .8; }
+.c3 { width: 42px; height: 42px; top: 66%; left: 45%; background: linear-gradient(145deg, #4a5f86, #1b3563); transform: rotate(20deg); }
+.c4 { width: 22px; height: 22px; bottom: 14%; left: 7%; background: linear-gradient(145deg, #e9c477, #b5832e); border-radius: 6px; }
+.dot { position: absolute; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #f6dfa6, #c9973f); }
+.d1 { width: 24px; height: 24px; top: 8%; left: 34%; }
+.d2 { width: 12px; height: 12px; top: 30%; left: 8%; opacity: .7; }
+
+.hero-grid { position: relative; display: grid; grid-template-columns: 1fr 500px; gap: 48px; align-items: center; padding-bottom: 40px; }
+.hero h1 { margin: 0 0 24px; font-size: 92px; font-weight: 900; line-height: 1.05; color: var(--navy); letter-spacing: -1.5px; }
+.hero h1 .sub { display: block; white-space: nowrap; font-size: 58px; margin-top: 10px; letter-spacing: -1px; }
+.gold { background: linear-gradient(180deg, #e2b863, #b5832e); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.teal { background: linear-gradient(90deg, #0fb5a1, #12a594 40%, #0f8f84); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lead { font-size: 26px; line-height: 1.5; color: var(--navy); margin: 0 0 28px; max-width: 640px; }
+.pills { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+.pills li { display: flex; align-items: center; gap: 14px; background: #fffaf0; border: 1.5px solid var(--gold-2); border-radius: 999px;
+  padding: 7px 7px 7px 26px; font-size: 20px; font-weight: 500; line-height: 1.2; box-shadow: 0 6px 18px rgba(13,35,71,.08); }
+.ico { width: 50px; height: 50px; border-radius: 50%; flex-shrink: 0; display: grid; place-items: center;
+  background: radial-gradient(circle at 35% 30%, #2b4a7c, var(--navy)); border: 2px solid var(--gold-2); }
+.ico svg { width: 28px; height: 28px; fill: none; stroke: var(--gold-2); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.hero-warning { position: relative; color: #e6e9f0; font-size: 18px; margin: 0 auto; padding-top: 6px; padding-bottom: 22px; }
+
+/* calculator */
+.calc-wrap { position: relative; }
+.calc-wrap::before { content: ""; position: absolute; inset: 70px 30px -18px -46px; border-radius: var(--radius); transform: rotate(-4deg);
+  background: linear-gradient(160deg, #e9c477, #b5832e); z-index: 0; box-shadow: 0 20px 40px rgba(13,35,71,.18); }
+.card { position: relative; z-index: 1; background: var(--card); border-radius: var(--radius); padding: 32px; box-shadow: 0 24px 60px rgba(13,35,71,.16); border: 1px solid #fff; }
+.calc-card { background: linear-gradient(160deg, #fffdf8 0%, #f7efe0 100%); padding: 40px 48px 44px; }
+.calc-card h2 { text-align: center; font-size: 38px; font-weight: 800; margin: 0 0 30px; }
+.slider-head { display: flex; justify-content: space-between; align-items: baseline; }
+.slider-head label { font-size: 24px; font-weight: 500; }
+.slider-head output { font-size: 30px; font-weight: 800; }
+
+input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 12px; border-radius: 999px; outline: none; margin: 14px 0 10px;
+  background: linear-gradient(to right, var(--navy) var(--fill, 50%), #ece6da var(--fill, 50%)); box-shadow: inset 0 1px 2px rgba(0,0,0,.12); }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 36px; height: 36px; border-radius: 50%; cursor: grab;
+  background: radial-gradient(circle at 35% 30%, #f6dfa6, #c9973f 60%, #a7762a); border: 3px solid #fff3d6; box-shadow: 0 3px 10px rgba(90,60,10,.4); }
+input[type=range]::-moz-range-thumb { width: 30px; height: 30px; border-radius: 50%; cursor: grab;
+  background: radial-gradient(circle at 35% 30%, #f6dfa6, #c9973f 60%, #a7762a); border: 3px solid #fff3d6; box-shadow: 0 3px 10px rgba(90,60,10,.4); }
+input[type=range]:focus-visible::-webkit-slider-thumb { outline: 3px solid var(--teal); }
+.range-labels { display: flex; flex-direction: row-reverse; justify-content: space-between; font-size: 19px; color: var(--navy); margin-bottom: 22px; }
+
+.summary { border-top: 1px solid var(--line); padding-top: 18px; text-align: center; }
+.summary p { margin: 0 0 4px; font-size: 26px; }
+.summary strong { font-weight: 800; font-size: 30px; }
+.fine { font-size: 13px; color: var(--muted); margin: 8px 0 18px; text-align: center; }
+
+/* ===== application ===== */
+.apply { padding: 56px 0; }
+.steps-bar { display: flex; gap: 8px; margin-bottom: 18px; }
+.step-dot { flex: 1; text-align: center; font-size: 15px; padding: 8px 4px; border-bottom: 4px solid var(--line); color: var(--muted); }
+.step-dot.active, .step-dot.done { border-color: var(--gold); color: var(--navy); font-weight: 700; }
+.chosen { background: #fbf3e2; border: 1px solid var(--gold-3); padding: 10px 14px; border-radius: 12px; margin: 0 0 22px; }
+fieldset { border: 0; padding: 0; margin: 0; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.field { margin-bottom: 16px; }
+.field label, .q { display: block; font-weight: 500; margin-bottom: 6px; }
+input:not([type=range]):not([type=radio]):not([type=checkbox]), select {
+  width: 100%; font: inherit; padding: 12px 14px; border: 1.5px solid var(--line); border-radius: 12px; background: #fff; color: var(--ink); }
+input:focus, select:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,151,63,.2); }
+.invalid { border-color: var(--error) !important; }
+.toggle { display: flex; gap: 12px; }
+.toggle label { flex: 1; border: 1.5px solid var(--line); border-radius: 12px; padding: 12px; text-align: center; cursor: pointer; font-weight: 500; margin: 0; background: #fff; }
+.toggle label:has(input:checked) { border-color: var(--gold); background: #fbf3e2; }
+.toggle.invalid label { border-color: var(--error); }
+.consent { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; margin-bottom: 14px; }
+.consent input { margin-top: 5px; width: 18px; height: 18px; flex-shrink: 0; accent-color: var(--navy); }
+.review { background: var(--cream); border-radius: 14px; padding: 14px 18px; margin-bottom: 18px; font-size: 15px; }
+.review div { display: flex; justify-content: space-between; gap: 12px; padding: 4px 0; border-bottom: 1px dashed var(--line); }
+.review div:last-child { border: 0; }
+.review span { color: var(--muted); }
+.error { color: var(--error); font-weight: 500; min-height: 1.6em; margin: 8px 0 0; }
+.done { text-align: center; padding: 24px 0; }
+.done-icon { width: 76px; height: 76px; border-radius: 50%; background: var(--gold-grad); color: #fff; font-size: 40px; display: grid; place-items: center; margin: 0 auto 12px; }
+
+/* ===== sections ===== */
+.how, .tracks, .faq { padding: 72px 0; }
+.how { background: #fff; }
+.section-title { text-align: center; font-size: 40px; font-weight: 800; margin: 0 0 40px; }
+.section-title::after { content: ""; display: block; width: 64px; height: 4px; border-radius: 4px; background: var(--gold-grad); margin: 12px auto 0; }
+.how-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.how-item { text-align: center; padding: 20px; }
+.how-item span { display: grid; place-items: center; width: 58px; height: 58px; margin: 0 auto 14px; border-radius: 50%; color: var(--gold-2);
+  background: radial-gradient(circle at 35% 30%, #2b4a7c, var(--navy)); border: 2px solid var(--gold-2); font-weight: 800; font-size: 24px; }
+.how-item h3 { margin: 0 0 6px; font-size: 22px; }
+.how-item p { margin: 0; color: var(--muted); }
+
+.tracks-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.track { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 30px; display: flex; flex-direction: column; gap: 6px; box-shadow: 0 10px 30px rgba(13,35,71,.06); }
+.track h3 { margin: 0; font-size: 24px; }
+.track .range { margin: 0; font-weight: 800; font-size: 20px; color: var(--teal); }
+.track p { margin: 0 0 14px; color: var(--muted); flex: 1; }
+.track.featured { background: var(--navy); color: #fff; border-color: var(--navy); transform: translateY(-8px); }
+.track.featured p { color: #cdd5e3; }
+.track.featured .range { color: var(--gold-2); }
+
+details { background: #fff; border-radius: 14px; padding: 18px 22px; margin-bottom: 12px; border: 1px solid var(--line); }
+summary { font-weight: 700; cursor: pointer; font-size: 18px; }
+details[open] summary { color: var(--gold); }
+details p { margin: 10px 0 0; color: var(--muted); }
+
+.contact { background: var(--navy); color: #fff; padding: 48px 0; border-top: 4px solid var(--gold); }
+.contact-inner { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+.contact h2 { margin: 0; font-size: 32px; }
+.contact p { margin: 4px 0 0; color: #cdd5e3; }
+.contact-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.footer { background: #081833; color: #aeb8c9; font-size: 14px; padding: 32px 0; }
+.footer .warning { color: #fff; font-weight: 700; font-size: 16px; }
+
+/* ===== responsive ===== */
+@media (max-width: 1150px) {
+  .nav { gap: 22px; }
+  .nav a, .btn-nav { font-size: 17px; }
+  .hero h1 { font-size: 72px; }
+  .hero h1 .sub { font-size: 44px; }
+  .hero-grid { grid-template-columns: 1fr 460px; gap: 40px; }
+  .calc-card { padding: 32px; }
+}
+@media (max-width: 960px) {
+  .topbar-inner { height: 76px; gap: 12px; }
+  .menu-btn { display: block; }
+  .btn-nav { display: none; }
+  .nav { display: none; position: absolute; top: 76px; right: 0; left: 0; flex-direction: column; gap: 0; background: var(--cream); padding: 8px 16px 16px; box-shadow: 0 12px 24px rgba(13,35,71,.12); }
+  .nav.open { display: flex; }
+  .nav a { padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .nav a::after { display: none; }
+  .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+  .wave { height: 45%; }
+  .calc-wrap { max-width: 540px; width: 100%; margin: 0 auto; }
+  .how-grid { grid-template-columns: 1fr 1fr; }
+  .tracks-grid { grid-template-columns: 1fr; }
+  .track.featured { transform: none; }
+  .c1 { display: none; }
+}
+@media (max-width: 560px) {
+  .logo-mark { width: 46px; height: 46px; }
+  .dot, .cube { display: none; }
+  .logo-text b { font-size: 24px; }
+  .logo-text small { font-size: 12px; }
+  .hero { padding-top: 24px; }
+  .hero h1 { font-size: 46px; }
+  .hero h1 .sub { font-size: 30px; white-space: normal; }
+  .lead { font-size: 19px; }
+  .pills li { font-size: 16px; }
+  .ico { width: 42px; height: 42px; }
+  .calc-wrap::before { inset: 50px 10px -12px -10px; }
+  .calc-card { padding: 26px 20px 28px; }
+  .calc-card h2 { font-size: 27px; margin-bottom: 20px; }
+  .slider-head label { font-size: 18px; }
+  .slider-head output { font-size: 22px; }
+  .range-labels { font-size: 15px; }
+  .summary p { font-size: 18px; }
+  .summary strong { font-size: 22px; }
+  .btn-block { font-size: 19px; }
+  .hero-warning { font-size: 14px; }
+  .card { padding: 22px; }
+  .row { grid-template-columns: 1fr; gap: 0; }
+  .how-grid { grid-template-columns: 1fr; }
+  .section-title { font-size: 30px; }
+  .step-dot { font-size: 12px; }
+}
+
+/* ===== שיפורים ===== */
+section[id] { scroll-margin-top: 96px; }
+.topbar { transition: box-shadow .25s; }
+.topbar.scrolled { box-shadow: 0 6px 24px rgba(13,35,71,.1); }
+:focus-visible { outline: 3px solid var(--teal); outline-offset: 2px; }
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.in { opacity: 1; transform: none; }
+.track.featured.reveal.in { transform: translateY(-8px); }
+.how-item:nth-child(2), .track:nth-child(2) { transition-delay: .1s; }
+.how-item:nth-child(3), .track:nth-child(3) { transition-delay: .2s; }
+.how-item:nth-child(4) { transition-delay: .3s; }
+.btn-gold:hover, .track .btn:hover { transform: translateY(-2px); }
+.track { transition: box-shadow .25s, transform .25s; }
+.track:hover { box-shadow: 0 18px 40px rgba(13,35,71,.12); }
+.apply .card { animation: pop .45s ease; }
+@keyframes pop { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+.step:not([hidden]) { animation: fade .3s ease; }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+.footer-links a { color: #dfe5ef; }
+.modal { border: 0; border-radius: var(--radius); padding: 32px; max-width: 560px; width: calc(100% - 32px); color: var(--ink); box-shadow: 0 30px 80px rgba(0,0,0,.3); }
+.modal::backdrop { background: rgba(8,24,51,.55); backdrop-filter: blur(3px); }
+.modal h3 { margin: 0 0 12px; font-size: 26px; }
+.modal-close { position: absolute; top: 12px; left: 14px; border: 0; background: none; font-size: 30px; line-height: 1; cursor: pointer; color: var(--muted); }
+.wa-float { position: fixed; bottom: 20px; left: 20px; z-index: 30; width: 60px; height: 60px; border-radius: 50%; background: #25d366; display: grid; place-items: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,.25); transition: transform .2s; }
+.wa-float:hover { transform: scale(1.08); }
+.wa-float svg { width: 34px; height: 34px; fill: #fff; }
+@media (max-width: 960px) { section[id] { scroll-margin-top: 76px; } }
+@media (max-width: 560px) { .wa-float { width: 52px; height: 52px; bottom: 14px; left: 14px; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a href="#top" class="logo" aria-label="קליק קרדיט – דף הבית">
+      <svg class="logo-mark" viewBox="0 0 64 64" aria-hidden="true">
+        <defs>
+          <linearGradient id="lgTeal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14b8a6"/><stop offset="1" stop-color="#0f766e"/></linearGradient>
+          <linearGradient id="lgGold" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#b8862f"/><stop offset="1" stop-color="#f2c76b"/></linearGradient>
+        </defs>
+        <path d="M50 16 A24 24 0 1 0 54 44" fill="none" stroke="url(#lgTeal)" stroke-width="7" stroke-linecap="round"/>
+        <path d="M22 42 L44 20" stroke="url(#lgGold)" stroke-width="6" stroke-linecap="round"/>
+        <path d="M34 18 L47 17 L46 30" fill="none" stroke="url(#lgGold)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="55" cy="10" r="2.6" fill="#f2c76b"/><circle cx="60" cy="16" r="1.8" fill="#14b8a6"/>
+      </svg>
+      <span class="logo-text"><b>קליק קרדיט</b><small>ההלוואה שלך, במרחק קליק</small></span>
+    </a>
+    <nav class="nav" id="nav">
+      <a href="#top" class="active">בית</a>
+      <a href="#how">איך זה עובד</a>
+      <a href="#tracks">מסלולי מימון</a>
+      <a href="#faq">שאלות ותשובות</a>
+      <a href="#contact">צור קשר</a>
+    </nav>
+    <a href="#calc" class="btn btn-gold btn-nav">בדיקת זכאות מהירה</a>
+    <button class="menu-btn" id="menuBtn" aria-label="תפריט" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true">
+    <svg class="wave" viewBox="0 0 1440 420" preserveAspectRatio="none">
+      <defs><linearGradient id="gw" x1="0" x2="1"><stop offset="0" stop-color="#c9973f"/><stop offset=".5" stop-color="#f0d08a"/><stop offset="1" stop-color="#c9973f"/></linearGradient></defs>
+      <path d="M0 40 C 260 10, 420 120, 640 150 C 900 190, 1150 300, 1440 220 L1440 420 L0 420 Z" fill="url(#gw)"/>
+      <path d="M0 80 C 260 50, 420 160, 640 190 C 900 230, 1150 330, 1440 250 L1440 420 L0 420 Z" fill="#0d2347"/>
+    </svg>
+    <i class="cube c1"></i><i class="cube c2"></i><i class="cube c3"></i><i class="cube c4"></i><i class="dot d1"></i><i class="dot d2"></i>
+  </div>
+
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <h1>קליק קרדיט -<span class="sub"><span class="gold">ההלוואה שלך,</span> <span class="teal">במרחק קליק</span></span></h1>
+      <p class="lead">פתרונות אשראי ומימון מהיר בתהליך דיגיטלי מלא, ללא בירוקרטיה ובדיסקרטיות מוחלטת</p>
+      <ul class="pills">
+        <li><span class="ico">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7"/><path d="M12 9v4l2.5 2M10 3h4M12 3v3"/></svg></span>אישור ראשוני תוך דקות</li>
+        <li><span class="ico">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M9.5 9l1.8 1.8L15 7.2M8.5 14l-1.5 7 5-2.5 5 2.5-1.5-7"/></svg></span>בדיקת זכאות חינם<br>ללא התחייבות</li>
+        <li><span class="ico">
+          <svg viewBox="0 0 24 24"><circle cx="13" cy="12" r="7"/><path d="M15 9.5c-.5-.8-1.3-1-2-1-1.2 0-2 .6-2 1.5 0 2.2 4.2 1 4.2 3.3 0 1-.9 1.7-2.2 1.7-.9 0-1.7-.4-2.2-1.1M13 7v1.5M13 15v1.5M2 9h3M1 12h3M2 15h3"/></svg></span>העברה מהירה ישירות לחשבון</li>
+      </ul>
+    </div>
+
+    <div class="calc-wrap" id="calc">
+      <div class="card calc-card">
+        <h2>מחשבון הלוואה מהירה</h2>
+
+        <div class="slider-head"><label for="amount">סכום הלוואה</label><output id="amountOut">30,000 ₪</output></div>
+        <input type="range" id="amount" min="5000" max="200000" step="1000" value="30000" dir="ltr">
+        <div class="range-labels"><span>5,000 ₪</span><span>200,000 ₪</span></div>
+
+        <div class="slider-head"><label for="months">תקופת החזר</label><output id="monthsOut">24 חודשים</output></div>
+        <input type="range" id="months" min="12" max="60" step="6" value="24" dir="ltr">
+        <div class="range-labels"><span>12 חודשים</span><span>60 חודשים</span></div>
+
+        <div class="summary">
+          <p>החזר חודשי משוער: <strong id="monthlyOut">—</strong></p>
+          <p>סה"כ להחזר: <strong id="totalOut">—</strong></p>
+        </div>
+        <p class="fine">חישוב להמחשה בלבד לפי ריבית שנתית של <span id="rateOut"></span>%. הריבית בפועל נקבעת לאחר בדיקת הבקשה.</p>
+
+        <button class="btn btn-gold btn-block" id="startBtn">להגשת בקשה בקליק <span class="chev">‹</span></button>
+      </div>
+    </div>
+  </div>
+  <p class="wrap hero-warning">*אי-עמידה בפירעון ההלוואה עלולה לגרור חיוב בריבית פיגורים והליכי הוצאה לפועל.</p>
+</section>
+
+<section class="apply" id="apply" hidden>
+  <div class="wrap narrow">
+    <div class="card">
+      <div class="steps-bar">
+        <span class="step-dot active" data-step="1">1. פרטים אישיים</span>
+        <span class="step-dot" data-step="2">2. פרטים פיננסיים</span>
+        <span class="step-dot" data-step="3">3. אישור</span>
+      </div>
+
+      <p class="chosen">בקשה ל-<b id="chosenAmount"></b> ₪ ל-<b id="chosenMonths"></b> חודשים · <a href="#calc">שינוי</a></p>
+
+      <form id="loanForm" novalidate>
+        <!-- שלב 1 -->
+        <fieldset class="step" data-step="1">
+          <div class="row">
+            <div class="field"><label for="firstName">שם פרטי</label><input id="firstName" name="firstName" required autocomplete="given-name"></div>
+            <div class="field"><label for="lastName">שם משפחה</label><input id="lastName" name="lastName" required autocomplete="family-name"></div>
+          </div>
+          <div class="row">
+            <div class="field"><label for="idNumber">תעודת זהות (9 ספרות)</label><input id="idNumber" name="idNumber" inputmode="numeric" maxlength="9" placeholder="כולל ספרת ביקורת" required autocomplete="off"></div>
+            <div class="field"><label for="phone">טלפון נייד</label><input id="phone" name="phone" type="tel" inputmode="tel" required autocomplete="tel" placeholder="05X-XXXXXXX"></div>
+          </div>
+          <div class="field"><label for="email">אימייל</label><input id="email" name="email" type="email" required autocomplete="email"></div>
+          <div class="row">
+            <div class="field"><label for="city">עיר</label><input id="city" name="city" required autocomplete="address-level2"></div>
+            <div class="field"><label for="street">רחוב ומספר בית</label><input id="street" name="street" required autocomplete="street-address"></div>
+          </div>
+          <button type="button" class="btn btn-block next">המשך ←</button>
+        </fieldset>
+
+        <!-- שלב 2 -->
+        <fieldset class="step" data-step="2" hidden>
+          <div class="field">
+            <label for="bank">באיזה בנק החשבון שלכם?</label>
+            <select id="bank" name="bank" required>
+              <option value="">בחרו בנק</option>
+              <option>בנק הפועלים (12)</option>
+              <option>בנק לאומי (10)</option>
+              <option>בנק דיסקונט (11)</option>
+              <option>בנק מזרחי טפחות (20)</option>
+              <option>הבנק הבינלאומי (31)</option>
+              <option>בנק מרכנתיל (17)</option>
+              <option>בנק ירושלים (54)</option>
+              <option>בנק מסד (46)</option>
+              <option>בנק יהב (04)</option>
+              <option>בנק הדואר (09)</option>
+              <option>וואן זירו (18)</option>
+              <option>אחר</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="employment">מצב תעסוקתי</label>
+            <select id="employment" name="employment" required>
+              <option value="">בחרו</option>
+              <option>שכיר/ה</option>
+              <option>עצמאי/ת</option>
+              <option>פנסיונר/ית</option>
+              <option>אחר</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="income">הכנסה חודשית נטו (₪)</label>
+            <input id="income" name="income" inputmode="numeric" required placeholder="לדוגמה 9,000">
+          </div>
+
+          <div class="field">
+            <span class="q">האם חזרו לכם צ'קים ב-3 השנים האחרונות?</span>
+            <div class="toggle">
+              <label><input type="radio" name="bouncedChecks" value="לא" required> לא</label>
+              <label><input type="radio" name="bouncedChecks" value="כן"> כן</label>
+            </div>
+          </div>
+          <div class="field" id="bouncedMore" hidden>
+            <label for="bouncedCount">בערך כמה צ'קים?</label>
+            <select id="bouncedCount" name="bouncedCount">
+              <option>1–2</option><option>3–9</option><option>10 ומעלה</option>
+            </select>
+          </div>
+          <div class="field">
+            <span class="q">האם החשבון מוגבל כיום?</span>
+            <div class="toggle">
+              <label><input type="radio" name="restricted" value="לא" required> לא</label>
+              <label><input type="radio" name="restricted" value="כן"> כן</label>
+            </div>
+          </div>
+
+          <div class="btn-row">
+            <button type="button" class="btn btn-ghost prev">→ חזרה</button>
+            <button type="button" class="btn next">המשך ←</button>
+          </div>
+        </fieldset>
+
+        <!-- שלב 3 -->
+        <fieldset class="step" data-step="3" hidden>
+          <h3>כמעט סיימנו</h3>
+          <div class="review" id="review"></div>
+          <label class="consent"><input type="checkbox" id="consent1" required> <span>אני מאשר/ת שהפרטים נכונים ומסכים/ה שתיבדק זכאותי, כולל פנייה למאגר נתוני האשראי של בנק ישראל בכפוף לחוק נתוני אשראי.</span></label>
+          <label class="consent"><input type="checkbox" id="consent2" required> <span>קראתי ואני מסכים/ה ל<a href="#" data-modal="termsModal">תנאי השימוש</a> ול<a href="#" data-modal="privacyModal">מדיניות הפרטיות</a>.</span></label>
+          <div class="btn-row">
+            <button type="button" class="btn btn-ghost prev">→ חזרה</button>
+            <button type="submit" class="btn">שליחת הבקשה</button>
+          </div>
+        </fieldset>
+
+        <p class="error" id="formError" role="alert"></p>
+      </form>
+
+      <div class="done" id="done" hidden>
+        <div class="done-icon">✓</div>
+        <h3>הבקשה התקבלה!</h3>
+        <p>נציג יחזור אליכם בהקדם עם הצעה. מספר פנייה: <b id="refNo"></b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="wrap">
+    <h2 class="section-title">איך זה עובד?</h2>
+    <div class="how-grid">
+      <div class="how-item reveal"><span>1</span><h3>בוחרים סכום</h3><p>מזיזים את הסקאלה לסכום ולתקופה שמתאימים לכם.</p></div>
+      <div class="how-item reveal"><span>2</span><h3>ממלאים פרטים</h3><p>טופס קצר – פרטים אישיים ופרטי חשבון הבנק.</p></div>
+      <div class="how-item reveal"><span>3</span><h3>מקבלים הצעה</h3><p>נציג בודק את הבקשה וחוזר עם הצעה מסודרת וחוזה.</p></div>
+      <div class="how-item reveal"><span>4</span><h3>הכסף בחשבון</h3><p>לאחר חתימה – הכסף מועבר ישירות לחשבון הבנק שלכם.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="tracks" id="tracks">
+  <div class="wrap">
+    <h2 class="section-title">מסלולי מימון</h2>
+    <div class="tracks-grid">
+      <div class="track reveal"><h3>הלוואה לכל מטרה</h3><p class="range">5,000 – 50,000 ₪</p><p>לשיפוץ, לרכב, לאירוע או לכל צורך אחר. החזר עד 36 חודשים.</p><a href="#calc" class="btn btn-ghost" data-amount="30000" data-months="24">לבדיקת זכאות</a></div>
+      <div class="track featured reveal"><h3>איחוד הלוואות</h3><p class="range">20,000 – 200,000 ₪</p><p>מאחדים כמה הלוואות לתשלום חודשי אחד ונוח. החזר עד 60 חודשים.</p><a href="#calc" class="btn btn-gold" data-amount="100000" data-months="60">לבדיקת זכאות</a></div>
+      <div class="track reveal"><h3>מימון לעסקים</h3><p class="range">10,000 – 200,000 ₪</p><p>הון חוזר, ציוד או מלאי לעסקים קטנים ועצמאים.</p><a href="#calc" class="btn btn-ghost" data-amount="80000" data-months="36">לבדיקת זכאות</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap narrow">
+    <h2 class="section-title">שאלות ותשובות</h2>
+    <details class="reveal"><summary>מה הסכום המקסימלי?</summary><p>ניתן לבקש הלוואה מ-5,000 ₪ ועד 200,000 ₪, לתקופה של 12 עד 60 חודשים.</p></details>
+    <details class="reveal"><summary>האם אפשר לקבל הלוואה אם חזרו לי צ'קים?</summary><p>כל בקשה נבדקת לגופה. היסטוריה של צ'קים חוזרים לא פוסלת אוטומטית, אבל משפיעה על תנאי ההלוואה.</p></details>
+    <details class="reveal"><summary>האם הגשת בקשה מחייבת אותי?</summary><p>לא. הגשת בקשה אינה מחייבת. ההלוואה נכנסת לתוקף רק לאחר חתימה על הסכם.</p></details>
+    <details class="reveal"><summary>אפשר לפרוע מוקדם?</summary><p>כן, בכל שלב, בהתאם להוראות החוק ולתנאי ההסכם.</p></details>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap contact-inner">
+    <div><h2>יש שאלה? נשמח לעזור</h2><p>הנציגים שלנו זמינים בימים א'–ה', 9:00–18:00</p></div>
+    <div class="contact-btns"><a href="tel:0500000000" class="btn btn-gold">התקשרו אלינו</a><a href="https://wa.me/972500000000" class="btn btn-outline-light" target="_blank" rel="noopener">וואטסאפ</a></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <p class="warning">אי עמידה בפירעון ההלוואה עלולה לגרור חיוב בריבית פיגורים והליכי הוצאה לפועל.</p>
+    <p>קליק קרדיט – [שם החברה בע"מ] · ח.פ. [להשלים] · בעל רישיון למתן אשראי מרשות שוק ההון, ביטוח וחיסכון, רישיון מס' [להשלים] · [כתובת] · [טלפון]</p>
+    <p>מתן ההלוואה כפוף לבדיקת זכאות ולשיקול דעת החברה. הריבית ושיעור העלות בפועל ייקבעו לפי נתוני הלקוח ובכפוף לחוק הסדרת הלוואות חוץ בנקאיות.</p>
+    <p class="footer-links"><a href="#" data-modal="termsModal">תנאי שימוש</a> · <a href="#" data-modal="privacyModal">מדיניות פרטיות</a> · <a href="#contact">צור קשר</a></p>
+    <p>© <span id="year"></span> קליק קרדיט · כל הזכויות שמורות</p>
+  </div>
+</footer>
+
+<dialog id="termsModal" class="modal">
+  <button class="modal-close" aria-label="סגירה">×</button>
+  <h3>תנאי שימוש</h3>
+  <p><b>[טיוטה – יש להחליף בנוסח שנכתב על ידי עורך דין]</b></p>
+  <p>השימוש באתר כפוף לתנאים אלה. הגשת בקשה באתר אינה מהווה התחייבות של החברה להעמיד הלוואה ואינה מחייבת את הלקוח. ההלוואה תינתן רק לאחר בדיקת זכאות וחתימה על הסכם הלוואה.</p>
+  <p>הנתונים במחשבון הם להמחשה בלבד. הריבית ושיעור העלות בפועל ייקבעו לפי נתוני הלקוח, בכפוף לחוק הסדרת הלוואות חוץ בנקאיות.</p>
+</dialog>
+<dialog id="privacyModal" class="modal">
+  <button class="modal-close" aria-label="סגירה">×</button>
+  <h3>מדיניות פרטיות</h3>
+  <p><b>[טיוטה – יש להחליף בנוסח שנכתב על ידי עורך דין]</b></p>
+  <p>הפרטים שנמסרים בטופס (כולל מספר תעודת זהות ופרטי חשבון) ישמשו לבדיקת הבקשה וליצירת קשר בלבד, יישמרו במאגר מאובטח בהתאם לחוק הגנת הפרטיות, ולא יועברו לצד שלישי ללא הסכמה, למעט כנדרש בדין.</p>
+  <p>ניתן לבקש לעיין במידע או למחוק אותו בפנייה אלינו.</p>
+</dialog>
+
+<a href="https://wa.me/972500000000" class="wa-float" target="_blank" rel="noopener" aria-label="וואטסאפ">
+  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.8-1.2s.2-1.1.1-1.2l-.4-.2z"/></svg>
+</a>
+
+<script>
+// ===== הגדרות – לעדכן לפני העלייה לאוויר =====
+const CONFIG = {
+  annualRate: 9.9,          // ריבית שנתית להמחשה במחשבון (%)
+  // כתובת שרת (HTTPS) שמקבל את הבקשות. כל עוד ריק – הטופס במצב הדגמה ולא נשלח לשום מקום.
+  submitUrl: '',
+};
+
+const $ = (id) => document.getElementById(id);
+const fmt = (n) => Math.round(n).toLocaleString('he-IL');
+
+// ===== מחשבון =====
+const amount = $('amount');
+const months = $('months');
+$('rateOut').textContent = CONFIG.annualRate;
+
+function paintRange(el) {
+  const pct = ((el.value - el.min) / (el.max - el.min)) * 100;
+  el.style.setProperty('--fill', pct + '%');
+}
+
+function updateCalc() {
+  const P = +amount.value;
+  const n = +months.value;
+  const r = CONFIG.annualRate / 100 / 12;
+  const monthly = r === 0 ? P / n : (P * r) / (1 - Math.pow(1 + r, -n));
+  $('amountOut').textContent = fmt(P) + ' ₪';
+  $('monthsOut').textContent = n + ' חודשים';
+  $('monthlyOut').textContent = fmt(monthly) + ' ₪';
+  $('totalOut').textContent = fmt(monthly * n) + ' ₪';
+  $('chosenAmount').textContent = fmt(P);
+  $('chosenMonths').textContent = n;
+  paintRange(amount);
+  paintRange(months);
+}
+amount.addEventListener('input', updateCalc);
+months.addEventListener('input', updateCalc);
+updateCalc();
+
+// ===== מעבר לטופס =====
+$('startBtn').addEventListener('click', () => {
+  $('apply').hidden = false;
+  $('apply').scrollIntoView({ behavior: 'smooth' });
+});
+
+// ===== מסלולי מימון – ממלאים את המחשבון =====
+document.querySelectorAll('[data-amount]').forEach((a) =>
+  a.addEventListener('click', () => {
+    amount.value = a.dataset.amount;
+    months.value = a.dataset.months;
+    updateCalc();
+  })
+);
+
+// ===== תפריט נייד =====
+const nav = $('nav');
+$('menuBtn').addEventListener('click', () => {
+  const open = nav.classList.toggle('open');
+  $('menuBtn').setAttribute('aria-expanded', open);
+});
+nav.addEventListener('click', (e) => {
+  if (e.target.tagName === 'A') nav.classList.remove('open');
+});
+
+// ===== ניקוי קלט =====
+$('idNumber').addEventListener('input', (e) => (e.target.value = e.target.value.replace(/\D/g, '').slice(0, 9)));
+$('income').addEventListener('input', (e) => {
+  const digits = e.target.value.replace(/\D/g, '').slice(0, 7);
+  e.target.value = digits ? (+digits).toLocaleString('en-US') : '';
+});
+$('phone').addEventListener('input', (e) => (e.target.value = e.target.value.replace(/[^\d-\s]/g, '')));
+// הסרת סימון שגיאה ברגע שמתקנים
+document.querySelectorAll('#loanForm input, #loanForm select').forEach((el) =>
+  el.addEventListener('input', () => {
+    el.classList.remove('invalid');
+    el.closest('.toggle')?.classList.remove('invalid');
+  })
+);
+
+// ===== אימות =====
+// בדיקת ספרת ביקורת של ת"ז ישראלית
+function isValidIsraeliId(id) {
+  id = String(id).trim();
+  if (!/^\d{5,9}$/.test(id)) return false;
+  id = id.padStart(9, '0');
+  let sum = 0;
+  for (let i = 0; i < 9; i++) {
+    let d = +id[i] * ((i % 2) + 1);
+    sum += d > 9 ? d - 9 : d;
+  }
+  return sum % 10 === 0;
+}
+
+const rules = {
+  firstName: (v) => v.trim().length >= 2 || 'נא למלא שם פרטי',
+  lastName: (v) => v.trim().length >= 2 || 'נא למלא שם משפחה',
+  idNumber: (v) => isValidIsraeliId(v) || 'מספר תעודת הזהות אינו תקין',
+  phone: (v) => /^05\d{8}$/.test(v.replace(/[-\s]/g, '')) || 'נא למלא מספר נייד תקין',
+  email: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) || 'נא למלא אימייל תקין',
+  city: (v) => v.trim().length >= 2 || 'נא למלא עיר',
+  street: (v) => v.trim().length >= 2 || 'נא למלא רחוב ומספר',
+  bank: (v) => !!v || 'נא לבחור בנק',
+  employment: (v) => !!v || 'נא לבחור מצב תעסוקתי',
+  income: (v) => /^\d{3,7}$/.test(v.replace(/[,\s]/g, '')) || 'נא למלא הכנסה חודשית במספרים',
+};
+
+const form = $('loanForm');
+const errorEl = $('formError');
+
+function validateStep(step) {
+  const fs = form.querySelector(`.step[data-step="${step}"]`);
+  let firstError = '';
+  fs.querySelectorAll('input, select').forEach((el) => {
+    let res = true;
+    if (rules[el.name]) res = rules[el.name](el.value);
+    else if (el.type === 'radio' && el.required) {
+      const ok = !!form.querySelector(`input[name="${el.name}"]:checked`);
+      el.closest('.toggle').classList.toggle('invalid', !ok);
+      res = ok || 'נא לענות על כל השאלות';
+    } else if (el.type === 'checkbox' && el.required) {
+      res = el.checked || 'נא לאשר את התנאים';
+    }
+    if (el.type !== 'radio') el.classList.toggle('invalid', res !== true);
+    if (res !== true && !firstError) firstError = res;
+  });
+  errorEl.textContent = firstError;
+  if (firstError) fs.querySelector('.invalid input, input.invalid, select.invalid')?.focus();
+  return !firstError;
+}
+
+// ===== שלבים =====
+let current = 1;
+function showStep(n) {
+  current = n;
+  form.querySelectorAll('.step').forEach((fs) => (fs.hidden = +fs.dataset.step !== n));
+  document.querySelectorAll('.step-dot').forEach((d) => {
+    const s = +d.dataset.step;
+    d.classList.toggle('active', s === n);
+    d.classList.toggle('done', s < n);
+  });
+  errorEl.textContent = '';
+  if (n === 3) buildReview();
+  $('apply').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const first = form.querySelector(`.step[data-step="${n}"] input, .step[data-step="${n}"] select`);
+  if (first && window.matchMedia('(pointer: fine)').matches) first.focus({ preventScroll: true });
+}
+form.addEventListener('click', (e) => {
+  if (e.target.classList.contains('next') && validateStep(current)) showStep(current + 1);
+  if (e.target.classList.contains('prev')) showStep(current - 1);
+});
+
+form.querySelectorAll('input[name="bouncedChecks"]').forEach((r) =>
+  r.addEventListener('change', () => ($('bouncedMore').hidden = r.value !== 'כן' || !r.checked))
+);
+
+function getData() {
+  const d = Object.fromEntries(new FormData(form));
+  if (d.bouncedChecks !== 'כן') delete d.bouncedCount;
+  if (d.income) d.income = d.income.replace(/\D/g, '');
+  d.amount = +amount.value;
+  d.months = +months.value;
+  return d;
+}
+
+function buildReview() {
+  const d = getData();
+  const maskedId = '*****' + d.idNumber.slice(-4);
+  const rows = [
+    ['סכום', fmt(d.amount) + ' ₪'],
+    ['תקופה', d.months + ' חודשים'],
+    ['שם', d.firstName + ' ' + d.lastName],
+    ['ת"ז', maskedId],
+    ['טלפון', d.phone],
+    ['כתובת', d.street + ', ' + d.city],
+    ['בנק', d.bank],
+    ['הכנסה חודשית', fmt(+d.income) + ' ₪'],
+    ["צ'קים חוזרים (3 שנים)", d.bouncedChecks + (d.bouncedCount ? ` (${d.bouncedCount})` : '')],
+    ['חשבון מוגבל', d.restricted],
+  ];
+  const box = $('review');
+  box.replaceChildren(
+    ...rows.map(([k, v]) => {
+      const row = document.createElement('div');
+      const a = document.createElement('span');
+      const b = document.createElement('b');
+      a.textContent = k;
+      b.textContent = v;
+      row.append(a, b);
+      return row;
+    })
+  );
+}
+
+// ===== שליחה =====
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (current !== 3) {
+    if (validateStep(current)) showStep(current + 1);
+    return;
+  }
+  if (!validateStep(3)) return;
+  const btn = form.querySelector('button[type=submit]');
+  btn.disabled = true;
+  btn.textContent = 'שולח...';
+  try {
+    if (CONFIG.submitUrl) {
+      const res = await fetch(CONFIG.submitUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(getData()),
+      });
+      if (!res.ok) throw new Error('bad status');
+    } else {
+      console.warn('מצב הדגמה: CONFIG.submitUrl ריק – הבקשה לא נשלחה.');
+    }
+    form.hidden = true;
+    document.querySelector('.steps-bar').hidden = true;
+    document.querySelector('.chosen').hidden = true;
+    $('refNo').textContent = Date.now().toString().slice(-7);
+    $('done').hidden = false;
+    $('apply').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch {
+    errorEl.textContent = 'אירעה שגיאה בשליחה. נסו שוב או התקשרו אלינו.';
+    btn.disabled = false;
+    btn.textContent = 'שליחת הבקשה';
+  }
+});
+
+// ===== תפריט פעיל לפי גלילה =====
+const navLinks = [...nav.querySelectorAll('a')];
+const spy = new IntersectionObserver(
+  (entries) => entries.forEach((en) => {
+    if (!en.isIntersecting) return;
+    navLinks.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id));
+  }),
+  { rootMargin: '-45% 0px -50% 0px' }
+);
+['top', 'how', 'tracks', 'faq', 'contact'].forEach((id) => $(id) && spy.observe($(id)));
+
+// ===== הצל בכותרת בזמן גלילה =====
+const topbar = document.querySelector('.topbar');
+addEventListener('scroll', () => topbar.classList.toggle('scrolled', scrollY > 10), { passive: true });
+
+// ===== אנימציית כניסה =====
+const reveal = new IntersectionObserver(
+  (entries) => entries.forEach((en) => {
+    if (en.isIntersecting) { en.target.classList.add('in'); reveal.unobserve(en.target); }
+  }),
+  { threshold: 0.15 }
+);
+document.querySelectorAll('.reveal').forEach((el) => reveal.observe(el));
+
+// ===== חלונות תנאי שימוש / פרטיות =====
+document.querySelectorAll('[data-modal]').forEach((a) =>
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    $(a.dataset.modal).showModal();
+  })
+);
+document.querySelectorAll('dialog').forEach((d) =>
+  d.addEventListener('click', (e) => {
+    if (e.target === d || e.target.classList.contains('modal-close')) d.close();
+  })
+);
+
+$('year').textContent = new Date().getFullYear();
+
+</script>
+</body>
+</html>
